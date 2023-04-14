@@ -36,11 +36,11 @@ public class SpaceStationToUI {
         shieldPower=station.getShieldPower();
         
         for (Weapon w:station.getWeapons()) {
-            weapons.add(w.getUIversion());
+            weapons.add(w.getUIVersion());
         }
         
         for(ShieldBooster s:station.getShieldBoosters()) {
-            shieldBoosters.add(s.getUIversion());
+            shieldBoosters.add(s.getUIVersion());
         }
         
         Hangar h=station.getHangar();
