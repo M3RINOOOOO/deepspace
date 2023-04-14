@@ -74,6 +74,7 @@ class CardDealer
         @suppliesPackages.add(SuppliesPackage.new(1,0,3))
         @suppliesPackages.add(SuppliesPackage.new(3,50,3))  
         @suppliesPackages.add(SuppliesPackage.new(40,100,40))
+        @suppliesPackages.add(SuppliesPackage.new(50,50,50)) #new
         @suppliesPackages.add(SuppliesPackage.new(100,100,100))
     end
     
@@ -89,6 +90,7 @@ class CardDealer
        @weapons.add(Weapon.new("Láser normal",WeaponType::LASER,2))
        @weapons.add(Weapon.new("Láser Mejorado",WeaponType::LASER,4))
        @weapons.add(Weapon.new("Láser Mejorado",WeaponType::LASER,4))
+       @weapons.add(Weapon.new("Láser galáctico",WeaponType::LASER,5))  #new
        
        @weapons.add(Weapon.new("Misiles del apocalipsis",WeaponType::MISSILE,100))
        @weapons.add(Weapon.new("Misil ACME",WeaponType::MISSILE,1))
@@ -118,6 +120,7 @@ class CardDealer
        @shieldBoosters.add(ShieldBooster.new("Escudo ACME",1.5,2))
        @shieldBoosters.add(ShieldBooster.new("Escudo normal",3.0,2))
        @shieldBoosters.add(ShieldBooster.new("Escudo normal",4.0,2))
+       @shieldBoosters.add(ShieldBooster.new("Escudo profesional",9.0,2)) #new
     end
                                
     def createHangars() 
@@ -130,6 +133,7 @@ class CardDealer
         @hangars.add(Hangar.new(2))
         @hangars.add(Hangar.new(1))
         @hangars.add(Hangar.new(1))
+        @hangars.add(Hangar.new(1)) #new
     end
     
     def createEnemies() 
@@ -176,7 +180,8 @@ class CardDealer
         @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0));   
         @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0));
         @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0));        
-          
+        @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0)); #new
+
         @enemies.add(EnemyStarShip.new("Enemigo difícil 0",200,100,goodLoot,hardSpecificDamage0));          
         @enemies.add(EnemyStarShip.new("Enemigo difícil 1",100,200,goodLoot,hardSpecificDamage0));   
         

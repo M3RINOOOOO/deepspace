@@ -23,11 +23,11 @@ public class HangarToUI {
         maxElements=h.getMaxElements();
         
         for (Weapon w:h.getWeapons()) {
-            weapons.add(w.getUIversion());
+            weapons.add(w.getUIVersion());
         }
         
         for(ShieldBooster s:h.getShieldBoosters()) {
-            shieldBoosters.add(s.getUIversion());
+            shieldBoosters.add(s.getUIVersion());
         }
     }
 
