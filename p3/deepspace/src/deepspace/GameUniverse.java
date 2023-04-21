@@ -33,11 +33,61 @@ public class GameUniverse {
     }
     
     CombatResult combat(SpaceStation station, EnemyStarShip enemy){
-                throw new UnsupportedOperationException();  
+        CombatResult combatResult;
+        boolean enemyWins;
+        float fire;
+        ShotResult result;
+        GameCharacter ch = dice.firstShot();
+        if(ch == GameCharacter.ENEMYSTARSHIP){
+            fire = enemy.fire();
+            result = station.receiveShot(fire);
+            if(result == ShotResult.RESIST){
+                fire = station.fire();
+                result = enemy.receiveShot(fire);
+                enemyWins = (result == ShotResult.RESIST);
+            }
+            else{
+                enemyWins = true;
+            }
+        }
+        else{
+            fire = station.fire();
+            result = enemy.receiveShot(fire);
+            enemyWins = (result == ShotResult.RESIST);
+        }
+        
+        
+        if(enemyWins){
+            float s = station.getSpeed();
+            boolean moves = dice.spaceStationMoves(s);
+            if(!moves){
+                Damage damage = enemy.getDamage();
+                station.setPendingDamage(damage);
+                combatResult = CombatResult.ENEMYWINS;
+            }
+            else{
+                station.move();
+                combatResult = CombatResult.STATIONESCAPES;
+            }
+        }
+        else{
+            Loot aloot = enemy.getLoot();
+            station.setLoot(aloot);
+            combatResult = CombatResult.STATIONWINS;
+        }
+        gameState.next(turns, spaceStations.size());
+        
+        return combatResult;
     }
     
     public CombatResult combat(){
-                throw new UnsupportedOperationException();  
+        GameState state = getState();
+        CombatResult result;
+        if((state == GameState.BEFORECOMBAT) || (state == GameState.INIT))
+            result = combat(currentStation,currentEnemy);
+        else
+            result = CombatResult.NOCOMBAT;
+        return result;
     }
     
     public void discardHangar(){
@@ -74,7 +124,7 @@ public class GameUniverse {
         return gameState.getState();
     }
     
-    public GameUniverseToUI getUIVersion(){
+    public GameUniverseToUI getUIversion(){
         return new GameUniverseToUI(currentStation,currentEnemy);
     }
     
@@ -82,8 +132,31 @@ public class GameUniverse {
         return currentStation.getNMedals() >= WIN;
     }
     
-    public void init(String[] names){
-        
+    public void init(ArrayList<String> names){
+        GameState state = getState();
+        if(state != GameState.CANNOTPLAY){
+            spaceStations = new ArrayList<SpaceStation>();
+            CardDealer dealer = CardDealer.getInstance();
+            
+            for(int i=0; i<names.size();i++){
+                SuppliesPackage supplies = dealer.nextSuppliesPackage();
+                SpaceStation station = new SpaceStation(names.get(i),supplies);
+                spaceStations.add(station);
+                
+                int nh = dice.initWithNHangars();
+                int nw = dice.initWithNWeapons();
+                int ns = dice.initWithNShields();
+                
+                Loot lo = new Loot(0,nw,ns,nh,0);
+                station.setLoot(lo);
+            }
+            
+            currentStationIndex = dice.whoStarts(names.size());
+            currentStation = spaceStations.get(currentStationIndex);
+            currentEnemy = dealer.nextEnemy();
+            
+            gameState.next(turns, spaceStations.size());
+        }
     }
     
     public void mountShieldBooster(int i){
@@ -99,7 +172,23 @@ public class GameUniverse {
     }
     
     public boolean nextTurn(){
-        throw new UnsupportedOperationException(); 
+        boolean result = false;
+        GameState state = getState();
+        if(state == GameState.AFTERCOMBAT){
+            boolean stationState = currentStation.validState();
+            if(stationState){
+                currentStationIndex=(currentStationIndex+1)%spaceStations.size();
+                turns++;
+                currentStation = spaceStations.get(currentStationIndex);
+                currentStation.cleanUpMountedItems();
+                CardDealer dealer = CardDealer.getInstance();
+                currentEnemy = dealer.nextEnemy();
+                gameState.next(turns, spaceStations.size());
+                result = true;
+            }
+        }
+        
+        return result;
     }
     
     

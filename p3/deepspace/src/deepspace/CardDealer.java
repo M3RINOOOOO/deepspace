@@ -84,6 +84,7 @@ class CardDealer {
         suppliesPackages.add(new SuppliesPackage(3,50,3));    
         suppliesPackages.add(new SuppliesPackage(40,100,40));
         suppliesPackages.add(new SuppliesPackage(100,100,100));
+        suppliesPackages.add(new SuppliesPackage(25,70,25));
     }
     private void createWeapons() {
        weapons.add(new Weapon("Láser infinito",WeaponType.LASER,100));
@@ -96,7 +97,8 @@ class CardDealer {
        weapons.add(new Weapon("Láser normal",WeaponType.LASER,2));
        weapons.add(new Weapon("Láser normal",WeaponType.LASER,2));
        weapons.add(new Weapon("Láser Mejorado",WeaponType.LASER,4));
-       weapons.add(new Weapon("Láser Mejorado",WeaponType.LASER,4));
+       
+       weapons.add(new Weapon("Láser Galáctico",WeaponType.LASER,25));
        
        weapons.add(new Weapon("Misiles del apocalipsis",WeaponType.MISSILE,100));
        weapons.add(new Weapon("Misil ACME",WeaponType.MISSILE,1));
@@ -125,6 +127,7 @@ class CardDealer {
        shieldBoosters.add(new ShieldBooster("Escudo ACME",1.5f,2));
        shieldBoosters.add(new ShieldBooster("Escudo normal",3.0f,2));
        shieldBoosters.add(new ShieldBooster("Escudo normal",4.0f,2));
+       shieldBoosters.add(new ShieldBooster("Escudo de cristal",50.0f,1));
     }
     private void createHangars() {
         hangars.add(new Hangar(4));
@@ -136,12 +139,14 @@ class CardDealer {
         hangars.add(new Hangar(2));
         hangars.add(new Hangar(1));
         hangars.add(new Hangar(1));
+        hangars.add(new Hangar(5));
     }
     private void createEnemies() {
         Loot regularLoot0=new Loot(1,2,1,1,1);
         Loot regularLoot1=new Loot(1,1,2,1,1);
         Loot badLoot=new Loot(1,1,1,0,1);
         Loot goodLoot=new Loot(2,2,2,1,2);
+        Loot treasureLoot=new Loot(4,4,4,2,0);
         
         Damage regularDamage0=new Damage(2,1); 
         Damage regularDamage1=new Damage(1,1); 
@@ -204,7 +209,9 @@ class CardDealer {
         enemies.add(new EnemyStarShip("Enemigo difícil 0",200,100,goodLoot,hardSpecificDamage0));          
         enemies.add(new EnemyStarShip("Enemigo difícil 1",100,200,goodLoot,hardSpecificDamage0));   
         
-        enemies.add(new EnemyStarShip("Enemigo imposible",500,500,goodLoot,hardSpecificDamage0));              
+        enemies.add(new EnemyStarShip("Enemigo imposible",500,500,goodLoot,hardSpecificDamage0));
+        
+        enemies.add(new EnemyStarShip("Nave del tesoro",1,1,treasureLoot,lowDamage1));
     }
 }
 
