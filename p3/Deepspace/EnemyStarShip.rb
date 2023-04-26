@@ -22,11 +22,11 @@ module Deepspace
         end 
 
         def fire()
-            @ammoPower()
+            @ammoPower
         end 
 
         def protection()
-            @shieldPower()
+            @shieldPower
         end 
 
         def receiveShot(shot)

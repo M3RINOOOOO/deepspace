@@ -9,20 +9,20 @@ module Deepspace
             @nHangars = _nHangars
             @nMedals = _nMedals
         end
-        def nSupplies()
+        def getNSupplies()
             @nSupplies
         end 
-        def nSupplies()
-            @nSupplies
+        def getNWeapons()
+            @nWeapons
         end 
-        def nSupplies()
-            @nSupplies
+        def getNShields()
+            @nShields
         end 
-        def nSupplies()
-            @nSupplies
+        def getNHangars()
+            @nHangars
         end 
-        def nSupplies()
-            @nSupplies
+        def getNMedals()
+            @nMedals
         end 
         def to_s()
             return "Supplies: #{@nSupplies}, Weapons: #{@nWeapons}, Shields: #{@nShields}, Hangars: #{@nHangars}, Medals: #{@nMedals}"

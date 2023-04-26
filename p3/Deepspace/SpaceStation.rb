@@ -1,3 +1,7 @@
+require_relative "ShotResult.rb"
+require_relative "CardDealer.rb"
+
+
 module Deepspace
 	class SpaceStation
 		@@MAXFUEL = 100
@@ -44,7 +48,14 @@ module Deepspace
 		end
 		
 		def discardShieldBooster(i)
-			
+			size = @shieldBooster.size()
+			if(i >= 0 && i < size)
+				s = shieldBooster.remove(i)
+				if(@pendingDamage != null)
+					discardShield(s)
+					cleanPendindDamage()
+				end
+			end
 			
 		end
 		
@@ -55,7 +66,14 @@ module Deepspace
 		end
 		
 		def discardWeapon(i)
-		
+			size = @weapons.size()
+			if(i >= 0 && i < size)
+				w = weapons.remove(i)
+				if(@pendingDamage != null)
+					discardWeapon(w)
+					cleanPendindDamage()
+				end
+			end
 		end
 		
 		def discardWeaponInHangar(i)
@@ -65,7 +83,13 @@ module Deepspace
 		end
 		
 		def fire()
-		
+			size = @weapons.size()
+			factor = 1
+			for i in(0..size)
+ 				w = weapons.next()
+ 				factor *= w.useIt()
+			end
+			return @ammoPower * factor
 		end
 		
 		def getSpeed()
@@ -101,7 +125,13 @@ module Deepspace
 		end
 		
 		def protection()
-			
+			size = @shieldBooster.size()
+			factor = 1
+			for i in(0..size)
+				s = shieldBoosters.next()
+				factor *= s.useIt()
+			end
+			return @shieldPower*factor
 		end
 		
 		def receiveHangar(h)
@@ -118,8 +148,17 @@ module Deepspace
 			end
 		end
 		
-		def receiveShot
-		
+		def receiveShot(shot)
+			myProtection = protection()
+			if(myProtection >= shot)
+				@shieldPower -= @@SHIELDLOSTPERUNITSHOT*shot
+				@shieldPower = [0.0,@shielPower].max()
+				return ShotResult::RESIST
+			else
+				@shieldPower = 0.0
+				return ShotResult::DONOTRESIST
+			end
+			
 		end
 		
 		def receiveSupplies(s)
@@ -137,7 +176,30 @@ module Deepspace
 		end
 		
 		def setLoot(loot)
-		
+			dealer = CardDealer.instance
+			h = loot.getNHangars()
+			if(h>0)
+				hangar = dealer.nextHangar()
+				receiveHangar(hangar)
+			end
+			elements = loot.getNSupplies()
+			for i in(1..elements)
+				sup = dealer.nextSuppliesPackage()
+				receiveSupplies(sup)
+			end
+			elements = loot.getNWeapons()
+			for i in(1..elements)
+				weap = dealer.nextWeapon()
+				receiveWeapon(weap)
+			end
+			elements = getNShields()
+			for i in(1..elements)
+				sh = dealer.nextShieldBooster()
+				receiveShieldBooster(sh)
+			end
+			medals = loot.getNmedals()
+			@nMedals += medals	
+			
 		end
 		
 		def setPendingDamage(d)
@@ -149,5 +211,7 @@ module Deepspace
 		end
 		
 	end
+	
+	
 	
 end			
