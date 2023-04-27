@@ -66,7 +66,7 @@ class Hangar {
      
      public ShieldBooster removeShieldBooster(int s){
          ShieldBooster out = null;
-         if (s<shieldBoosters.size()){
+         if (s<shieldBoosters.size() && s>=0){
              out = shieldBoosters.get(s);
              shieldBoosters.remove(s);
          }
@@ -75,16 +75,16 @@ class Hangar {
      
      public Weapon removeWeapon(int w) {
          Weapon out = null;
-         if (w<weapons.size()){
-             out = weapons.get(w);
-             weapons.remove(w);
+         if (w<weapons.size() && w>=0){
+                 out = weapons.get(w);
+                 weapons.remove(w);            
          }
          return out; 
      }
      
-    @Override
-    public String toString(){
-        String out = "Max Elements: " + maxElements + ", Weapons: " + weapons.toString() + ", Shields: " + shieldBoosters.toString();
-        return out;
-    }
+        @Override
+        public String toString(){
+            String out = "Max Elements: " + maxElements + ", Weapons: " + weapons.toString() + ", Shields: " + shieldBoosters.toString();
+            return out;
+        }
 }

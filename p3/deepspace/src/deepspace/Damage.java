@@ -35,7 +35,9 @@ public class Damage {
     Damage(Damage d){
        nShields = d.nShields;
        nWeapons = d.nWeapons;
-       ArrayList<WeaponType> aux = new ArrayList<WeaponType>(d.weapons);
+       ArrayList<WeaponType> aux = new ArrayList<WeaponType>();
+       if(d.weapons != null)
+           aux = d.weapons;
        weapons = aux;           
     }
     
