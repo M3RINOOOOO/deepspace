@@ -6,20 +6,23 @@ package deepspace;
 
 /**
  *
- * @author cristobalmer
+ * @author Sergio
  */
 public enum WeaponType {
+    LASER(2.0f),
+    MISSILE(3.0f),
+    PLASMA(4.0f);
     
-    LASER(2f), MISSILE(3f), PLASMA(4f); 
-    //atributo instancia privado
     private final float power;
-    //visibilidad de paquete
-    WeaponType(float _power) { 
-        power = _power;
+    
+    WeaponType(float power){
+        this.power = power;
     }
-     //visibilidad de paquete
+    
     float getPower(){
-        return power;
+        return this.power;
     }
-   
 }
+
+
+

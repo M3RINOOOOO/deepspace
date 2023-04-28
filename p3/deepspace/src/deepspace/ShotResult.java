@@ -3,10 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
 package deepspace;
-
 /**
  *
- * @author cristobalmer
+ * @author Sergio
  */
 public enum ShotResult {
     DONOTRESIST, RESIST

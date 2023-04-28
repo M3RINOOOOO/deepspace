@@ -6,7 +6,7 @@ package deepspace;
 
 /**
  *
- * @author cristobalmer
+ * @author Sergio
  */
 public enum GameCharacter {
     ENEMYSTARSHIP, SPACESTATION
