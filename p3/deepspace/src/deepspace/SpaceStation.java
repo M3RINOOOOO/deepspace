@@ -255,7 +255,7 @@ class SpaceStation {
     }
     
     public void setPendingDamage(Damage d){
-        d.adjust(weapons, shieldBoosters);
+        pendingDamage = d.adjust(weapons, shieldBoosters);
     }
     
     public boolean validState(){
