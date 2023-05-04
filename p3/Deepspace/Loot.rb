@@ -9,21 +9,10 @@ module Deepspace
             @nHangars = _nHangars
             @nMedals = _nMedals
         end
-        def getNSupplies()
-            @nSupplies
-        end 
-        def getNWeapons()
-            @nWeapons
-        end 
-        def getNShields()
-            @nShields
-        end 
-        def getNHangars()
-            @nHangars
-        end 
-        def getNMedals()
-            @nMedals
-        end 
+
+        attr_reader:nSupplies,:nWeapons,:nShields,:nHangars,:nMedals
+
+
         def to_s()
             return "Supplies: #{@nSupplies}, Weapons: #{@nWeapons}, Shields: #{@nShields}, Hangars: #{@nHangars}, Medals: #{@nMedals}"
         end 

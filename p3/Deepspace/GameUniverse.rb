@@ -1,14 +1,21 @@
-require_relative "GameStateController.rb"
-require_relative "GameState.rb"
-require_relative "Dice.rb"
-require_relative "EnemyStarShip.rb"
-require_relative "GameUniverseToUI.rb"
-require_relative "CardDealer.rb"
+#encoding:utf-8
+
+require_relative 'GameUniverseToUI'
+require_relative 'GameStateController'
+require_relative 'Dice'
+require_relative 'Loot'
+require_relative 'CombatResult'
+require_relative 'GameCharacter'
+require_relative 'ShotResult'
+require_relative 'SpaceStation'
+require_relative 'CardDealer'
+require_relative 'EnemyStarShip'
 
 
 module Deepspace
     class GameUniverse
         @@WIN = 10
+        @@not_used = -1
         def initialize()
             @gameState = GameStateController.new()
             @turns = 0
@@ -39,7 +46,7 @@ module Deepspace
 
             if(enemyWins)
                 s = station.speed
-                moves = dice.SpaceStationMoves(s)
+                moves = @dice.SpaceStationMoves(s)
                 if(!moves)
                     damage = enemy.damage
                     station.setPendingDamage(damage)
@@ -110,8 +117,8 @@ module Deepspace
         end
         
         def init(names) 
-            state = @gameState.getState()
-            if(state==GameState.CANNOTPLAY)
+            state = @gameState.state
+            if(state==GameState::CANNOTPLAY)
                 @spaceStations = Array.new()
                 dealer = CardDealer.instance
                 names.each do |name|

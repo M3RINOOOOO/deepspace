@@ -2,28 +2,27 @@ require_relative "HangarToUI.rb"
 
 module Deepspace
 	class Hangar
-		def initialize(m,w,s)
-			@maxElements = m
-			@weapons = w
-			@shieldBooster = s
+		def initialize(_maxElements)
+			@maxElements=_maxElements
+            @shieldBoosters = Array.new()  
+            @weapons = Array.new()
 		end
-		
-		def self.Hangar(capacity)
-			new(m,nil,nil)
-		end
-		
+				
 		def self.newCopy(h)
-			Hangar.new(h.maxElements,h.weapons,h.shieldBooster)
+			out = Hangar.new(h.maxElements)
+            h.shieldBoosters().each {|x| out.addShieldBooster(x)}
+            h.weapons().each {|x| out.addWeapon(x)}
+            return out
 		end
 		
-		attr_reader:maxElements, :weapons, :shieldBooster
+		attr_reader:maxElements, :weapons, :shieldBoosters
 		
 		def getUIversion()
 			HangarToUI.new(self)
 		end
 		
 		def spaceAvailable()
-			return @maxElements > (@weapons.length()+@shieldBooster.length())
+			return @maxElements > (@weapons.count+@shieldBooster.count)
 		end
 		
 		def addWeapon(w)

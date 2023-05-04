@@ -4,18 +4,20 @@ require_relative "CardDealer.rb"
 
 module Deepspace
 	class SpaceStation
-		@@MAXFUEL = 100
-		@@SHIELDLOSTPERUNITSHOT = 0.1
-		def initialize(a,f,n,m,sp,w,sb,p,h)
-			@ammoPower = a
-			@fuelUnits = f
-			@name = n
-			@nMedals = m
-			@shieldPower = sp
-			@weapons = w
-			@shieldBooster = sb
-			@pendingDamage = p
-			@hangar = h
+		def initialize(n, supplies)
+			@MAXFUEL = 100 
+			@SHIELDLOSSPERUNITSHOT = 0.1     
+			@name=n
+			@nMedals = 0
+				
+			@hangar = nil
+			@pendingDamage = nil
+			@shieldBoosters = []  
+			@weapons = [] 
+			@ammoPower= supplies.ammoPower
+			@shieldPower= supplies.shieldPower
+			@fuelUnits = supplies.fuelUnits
+						
 		end
 		
 		def assignFuelValue(f)
@@ -177,27 +179,27 @@ module Deepspace
 		
 		def setLoot(loot)
 			dealer = CardDealer.instance
-			h = loot.getNHangars()
+			h = loot.nHangars()
 			if(h>0)
 				hangar = dealer.nextHangar()
 				receiveHangar(hangar)
 			end
-			elements = loot.getNSupplies()
+			elements = loot.nSupplies()
 			for i in(1..elements)
 				sup = dealer.nextSuppliesPackage()
 				receiveSupplies(sup)
 			end
-			elements = loot.getNWeapons()
+			elements = loot.nWeapons()
 			for i in(1..elements)
 				weap = dealer.nextWeapon()
 				receiveWeapon(weap)
 			end
-			elements = getNShields()
+			elements = loot.nShields()
 			for i in(1..elements)
 				sh = dealer.nextShieldBooster()
 				receiveShieldBooster(sh)
 			end
-			medals = loot.getNmedals()
+			medals = loot.nMedals()
 			@nMedals += medals	
 			
 		end
