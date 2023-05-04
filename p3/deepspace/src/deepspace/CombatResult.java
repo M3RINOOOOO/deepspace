@@ -6,8 +6,8 @@ package deepspace;
 
 /**
  *
- * @author cristobalmer
+ * @author Sergio
  */
 public enum CombatResult {
-     ENEMYWINS, NOCOMBAT, STATIONESCAPES, STATIONWINS
+    ENEMYWINS, NOCOMBAT, STATIONESCAPES, STATIONWINS
 }

@@ -6,48 +6,47 @@ package deepspace;
 
 /**
  *
- * @author cristobalmer
+ * @author Sergio
  */
-class ShieldBooster {
+public class ShieldBooster {
+    
     private String name;
     private float boost;
     private int uses;
     
-    ShieldBooster(String _name,float _boost,int _uses){
-        name = _name;
-        boost = _boost;
-        uses = _uses;
-    }
-    ShieldBooster(ShieldBooster s){
-        name = s.name;
-        boost = s.boost;
-        uses = s.uses;
-    }
-    public String getName(){
-        return name;
-    }    
-    public float getBoost(){
-        return boost;
-    }
-    public int getUses(){
-        if (uses!=-1)
-            return uses;
-        else return 0;
-    }
-    public float useIt(){
-        if(uses>0){
-            uses--;
-            return boost;
-        }else return 1.0f;
-    }
-    ShieldToUI getUIVersion(){
-       return new ShieldToUI(this);
+    ShieldBooster(String name, float boost, int uses){
+        this.name = name;
+        this.boost = boost;
+        this.uses = uses;
     }
     
-    @Override
-    public String toString(){
-        String result= new String("Name of shieldbooster: ");
-        result+=name+"\nBoost: "+String.valueOf(boost)+"\nNumber of uses: "+String.valueOf(uses);
-        return result;
+    ShieldBooster( ShieldBooster s){
+        this.name = s.name;
+        this.boost = s.boost;
+        this.uses = s.uses;
+    }
+    
+    float getBoost(){
+        return this.boost;
+    }
+    
+    int getUses(){
+        return this.uses;
+    }
+    
+    float useIt(){
+        float ret;
+        if(uses>0){
+            --uses; 
+            ret = boost;
+        }
+        else
+            ret = 1.0f;
+        
+        return ret;
+    }
+    
+    ShieldToUI getUIversion(){
+        return new ShieldToUI(this);
     }
 }

@@ -41,6 +41,9 @@ class SpaceStation {
         shieldBoosters = new ArrayList<>();
         name = n;
         receiveSupplies(supplies);
+        hangar = null;
+        pendingDamage = null;
+        
     }
     
     public void cleanUpMountedItems(){
@@ -55,6 +58,7 @@ class SpaceStation {
     public void discardShieldBooster(int i){
         int size = shieldBoosters.size();
         if(i>=0 && i<size){
+            ShieldBooster s = shieldBoosters.remove(i);
             if(pendingDamage != null){
                 pendingDamage.discardShieldBooster();
                 cleanPendingDamage();
@@ -176,7 +180,7 @@ class SpaceStation {
     }
             
     public void receiveHangar(Hangar h){
-        if (hangar ==null){
+        if (hangar == null){
             hangar = h;
         }
     }
@@ -205,6 +209,7 @@ class SpaceStation {
         return out;
     }
     
+    
     public void receiveSupplies(SuppliesPackage s){
         ammoPower += s.getAmmoPower();
         assignFuelValue(fuelUnits+s.getFuelUnits());
@@ -228,19 +233,19 @@ class SpaceStation {
         }
         
         int elements = loot.getNSupplies();
-        for(int i =1;i<elements;i++){
+        for(int i =0;i<elements;i++){
             SuppliesPackage sup = dealer.nextSuppliesPackage();
             receiveSupplies(sup);
         }
         
         elements = loot.getNWeapons();
-         for(int i =1;i<elements;i++){
+         for(int i =0;i<elements;i++){
             Weapon weap = dealer.nextWeapon();
             receiveWeapon(weap);
         }
          
          elements = loot.getNShields();
-         for(int i =1;i<elements;i++){
+         for(int i =0;i<elements;i++){
             ShieldBooster sh =dealer.nextShieldBooster();
             receiveShieldBooster(sh);
         }
@@ -250,10 +255,12 @@ class SpaceStation {
     }
     
     public void setPendingDamage(Damage d){
-        d.adjust(weapons, shieldBoosters);
+        pendingDamage = d.adjust(weapons, shieldBoosters);
     }
     
     public boolean validState(){
         return (pendingDamage == null || pendingDamage.hasNoEffect());
     }
+    
+    
 }

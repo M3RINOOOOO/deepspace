@@ -134,7 +134,7 @@ public class GameUniverse {
     
     public void init(ArrayList<String> names){
         GameState state = getState();
-        if(state != GameState.CANNOTPLAY){
+        if(state == GameState.CANNOTPLAY){
             spaceStations = new ArrayList<SpaceStation>();
             CardDealer dealer = CardDealer.getInstance();
             

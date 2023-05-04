@@ -6,56 +6,57 @@ package deepspace;
 
 /**
  *
- * @author cristobalmer
+ * @author Sergio
  */
-class Weapon {
+public class Weapon {
+    
     private String name;
     private WeaponType type;
     private int uses;
     
-    Weapon(String _name,WeaponType _type,int _uses){
-        name = _name;
-        type = _type;
-        uses = _uses;
+    Weapon(String name, WeaponType type, int uses){
+        this.name = name;
+        this.type = type;
+        this.uses = uses;
+        
     }
     
-    Weapon(Weapon w){
-        name = w.name;
-        type = w.type;
-        uses = w.uses;
+    Weapon(Weapon s){
+        this.name = s.name;
+        this.type = s.type;
+        this.uses = s.uses;
     }
     
-    public String getName(){
-        return name;
+    WeaponToUI getUIversion(){
+        return new WeaponToUI(this);
     }
     
-    public WeaponType getType(){
-        return type;
+    WeaponType getType(){
+        return this.type;      
     }
     
-    public int getUses(){
-        return uses;
+    int getUses(){
+        return this.uses;
     }
     
-    public float power(){
-        return type.getPower();
+    float power(){
+        return this.type.getPower();
     }
     
-    public float useIt(){
-        if (uses >0){
-            uses--;
-            return power();
-        }else return 1.0f;
-    }
-    
-    WeaponToUI getUIVersion(){
-       return new WeaponToUI(this);
+    float useIt(){
+        float ret;
+        if(this.uses>0){
+            --this.uses;
+            ret = power();
+        }else
+            ret = 1.0f;
+        return ret;        
     }
     
     @Override
     public String toString(){
-        String result= new String("Name of Weapon: ");
-        result+=name+"\nType: "+type.toString()+"\nNumber of uses: "+String.valueOf(uses);
-        return result;
-    }    
+        String out;
+        out = "Name: " + name + ", Weapon Type: " + type + ", Uses: " + uses;
+        return out;
+    }
 }

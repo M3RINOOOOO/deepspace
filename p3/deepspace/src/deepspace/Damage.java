@@ -59,40 +59,40 @@ public class Damage {
     
     public Damage adjust(ArrayList<Weapon> w, ArrayList<ShieldBooster> s){
         
+        Damage d = new Damage(this);
         
         
+        if(d.nShields > s.size())
+            d.nShields = s.size();
         
-        if(nShields > s.size())
-            nShields = s.size();
         
-        
-        if(nWeapons == NOUSE){
-            ArrayList<Weapon> wAux = w;
+        if(d.nWeapons == NOUSE){
+            ArrayList<Weapon> wAux = new ArrayList<Weapon>(w);
             ArrayList<WeaponType> result = new ArrayList<WeaponType>();
             
-            for(int i=0; i<weapons.size(); i++){
-                int aux = arrayContainsType(wAux,weapons.get(i));        
+            for(int i=0; i<d.weapons.size(); i++){
+                int aux = arrayContainsType(wAux,d.weapons.get(i));        
                 if(aux != -1 ){
-                    result.add(weapons.get(i));
+                    result.add(d.weapons.get(i));
                     wAux.remove(aux);
                 }
             }
        
-            weapons = result;           
+            d.weapons = result;           
         }          
         else
-            if(nWeapons > w.size())
-                nWeapons = w.size();
+            if(d.nWeapons > w.size())
+                d.nWeapons = w.size();
           
         
-        Damage d = new Damage(this);         
+                
         
         return d;
     }
     
     public void discardWeapon(Weapon w){
          if(nWeapons == NOUSE){
-             weapons.remove(w);
+             weapons.remove(w.getType());
          }else
              nWeapons--;             
     }

@@ -4,57 +4,70 @@
  */
 package deepspace;
 import java.util.Random;
-
 /**
  *
- * @author cristobalmer
+ * @author Sergio
  */
-class Dice {
-     private final float NHANGARSPROB;
-     private final float NSHIELDSPROB;
-     private final float NWEAPONSPROB;
-     private final float FIRSTSHOTPROB;
-     private Random generator;
-     
-     Dice(){
-        generator = new Random();
-        NHANGARSPROB = 0.25f;
-        NSHIELDSPROB = 0.25f;
-        NWEAPONSPROB = 0.33f;
-        FIRSTSHOTPROB = 0.5f;
-     }
-     int initWithNHangars(){
-         return (generator.nextFloat()<NHANGARSPROB ? 0 : 1);
-     }
-     
-     int initWithNWeapons(){
-         float prob = generator.nextFloat();
-         int result;
-         if (prob < NWEAPONSPROB){
-             result = 1;
-         }
-         else if (prob< NWEAPONSPROB*2){
-             result = 2;
-         }
-         else{
-             result = 3;
-         }
-         return result;
-     }
-     
-     int initWithNShields(){
-         return (generator.nextFloat()<NSHIELDSPROB ? 0 : 1);
-     }
-     
-     int whoStarts(int nPlayers){
-         return (generator.nextInt(nPlayers));
-     }
-     
-     GameCharacter firstShot(){
-         return (generator.nextFloat()<FIRSTSHOTPROB ? GameCharacter.SPACESTATION : GameCharacter.ENEMYSTARSHIP);
-     }
-     
-     boolean spaceStationMoves(float speed){
-         return generator.nextFloat()<speed;
-     }
+public class Dice {
+    private final float NHANGARSPROB;
+    private final float NSHIELDSPROB;
+    private final float NWEAPONSPROB;
+    private final float FIRSTSHOTPROB;
+    private Random generator;
+    
+    Dice(){
+        this.NHANGARSPROB=0.25f;
+        this.NSHIELDSPROB=0.25f;
+        this.NWEAPONSPROB=0.33f;
+        this.FIRSTSHOTPROB=0.5f;
+        this.generator = new Random();
+    }
+    
+    int initWithNHangars(){
+        int ret = 1;
+        if(generator.nextFloat()<NHANGARSPROB)
+            ret = 0;
+        
+        return ret;
+    }
+    
+    int initWithNWeapons(){
+        int ret;
+        float prob=generator.nextFloat();
+        if(prob<NWEAPONSPROB)
+            ret = 1;
+        else if(prob < 2*NWEAPONSPROB)
+            ret = 2;
+        else
+            ret = 3;
+        return ret;
+    }
+    
+    int initWithNShields(){
+        int ret = 1;
+        if(generator.nextFloat()<NSHIELDSPROB)
+            ret = 0;
+        return ret;
+    }
+    
+    int whoStarts(int nPlayers){
+        return generator.nextInt(nPlayers);
+    }
+    
+    GameCharacter firstShot(){
+        GameCharacter ret = GameCharacter.ENEMYSTARSHIP;
+        if(generator.nextFloat()<FIRSTSHOTPROB)
+            ret = GameCharacter.SPACESTATION;
+        return ret;
+    }
+    
+    boolean spaceStationMoves(float speed){
+        boolean ret = false;
+        if(generator.nextFloat()<speed)
+            ret = true;
+        return ret;
+    }
+    
+    
+
 }

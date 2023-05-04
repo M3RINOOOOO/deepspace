@@ -6,37 +6,35 @@ package deepspace;
 
 /**
  *
- * @author cristobalmer
+ * @author Sergio
  */
 class SuppliesPackage {
-    private float ammoPower;
-    private float fuelUnits;
-    private float shieldPower;
+    private final float ammoPower;
+    private final float fuelUnits;
+    private final float shieldPower;
     
-    SuppliesPackage(float _ammoPower,float _fuelUnits,float _shieldPower){
-        ammoPower = _ammoPower;
-        fuelUnits = _fuelUnits;
-        shieldPower = _shieldPower;
+    SuppliesPackage(float ammoPower, float fuelUnits, float shieldPower){
+        this.ammoPower = ammoPower;
+        this.fuelUnits = fuelUnits;
+        this.shieldPower = shieldPower;
     }
+    
     SuppliesPackage(SuppliesPackage s){
-        ammoPower = s.ammoPower;
-        fuelUnits = s.fuelUnits;
-        shieldPower = s.shieldPower;
+        this.ammoPower = s.ammoPower;
+        this.fuelUnits = s.fuelUnits;
+        this.shieldPower = s.shieldPower;
     }
-    public float getAmmoPower(){
-        return ammoPower;
-    }    
-    public float getFuelUnits(){
-        return fuelUnits;
-    }    
-    public float getShieldPower(){
-        return shieldPower;
-    }    
     
-    @Override
-    public String toString(){
-        String result= new String("Suppliespackage with ammoPower: ");
-        result+=String.valueOf(ammoPower)+"\nfuelUnits: "+String.valueOf(fuelUnits)+"\nshieldPower: "+String.valueOf(shieldPower);
-        return result;
+    float getAmmoPower(){
+        return this.ammoPower;
     }
+    
+    float getFuelUnits(){
+       return this.fuelUnits;
+    }
+   
+    float getShieldPower(){
+        return this.shieldPower;
+    }
+  
 }
