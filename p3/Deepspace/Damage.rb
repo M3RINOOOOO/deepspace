@@ -49,10 +49,10 @@ module Deepspace
         end 
 
         def adjust(w,s)
-            if s > @nShields
+            if (s.count > @nShields)
                 new_nShields = @nShields
             else
-                new_nShields = s
+                new_nShields = s.count
             end
 
             if @weapons == nil

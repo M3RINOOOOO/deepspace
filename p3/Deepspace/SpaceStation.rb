@@ -5,6 +5,7 @@ require_relative 'SpaceStationToUI'
 
 module Deepspace
 	class SpaceStation
+		@@not_used = -1
 		def initialize(n, supplies)
 			@MAXFUEL = 100 
 			@SHIELDLOSSPERUNITSHOT = 0.1     
@@ -69,7 +70,7 @@ module Deepspace
 			size = @weapons.size()
 			if(i >= 0 && i < size)
 				w = @weapons.delete_at(i)
-				if(@pendingDamage != null)
+				if(@pendingDamage != nil)
 					discardWeapon(w)
 					cleanPendingDamage()
 				end
@@ -101,7 +102,7 @@ module Deepspace
 		end
 		
 		def mountShieldBooster(i)
-			if (@hangar != nil)
+			if (@hangar != nil && i!=@@not_used)
                 aux = @hangar.removeShieldBooster(i)
                 if (aux != nil)
                     @shieldBoosters.push(aux)
@@ -110,7 +111,7 @@ module Deepspace
 		end
 		
 		def mountWeapon(i)
-			if (@hangar != nil)
+			if (@hangar != nil && i!=@@not_used)
                 aux = @hangar.removeWeapon(i)
                 if (aux != nil)
                     @weapons.push(aux)

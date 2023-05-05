@@ -49,6 +49,7 @@ module Deepspace
                 moves = @dice.spaceStationMoves(s)
                 if(!moves)
                     damage = enemy.damage
+                    station.cleanUpMountedItems
                     station.setPendingDamage(damage)
                     combatResult=CombatResult::ENEMYWINS
                 else
