@@ -62,6 +62,7 @@ public class GameUniverse {
             boolean moves = dice.spaceStationMoves(s);
             if(!moves){
                 Damage damage = enemy.getDamage();
+                station.cleanUpMountedItems();
                 station.setPendingDamage(damage);
                 combatResult = CombatResult.ENEMYWINS;
             }
