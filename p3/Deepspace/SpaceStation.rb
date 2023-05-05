@@ -40,7 +40,7 @@ module Deepspace
 		
 		def cleanUpMountedItems()
 			@weapons.delete_if {|w| w.uses == 0}
-			@shieldBooster.delete_if {|s| s.uses == 0}
+			@shieldBoosters.delete_if {|s| s.uses == 0}
 		end
 		
 		def discardHangar()
@@ -215,7 +215,7 @@ module Deepspace
 		end
 		
 		def setPendingDamage(d)
-			@pendingDamage = d.adjust(@weapons,@shieldBooster)
+			@pendingDamage = d.adjust(@weapons,@shieldBoosters)
 		end
 		
 		def validState()

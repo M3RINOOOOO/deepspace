@@ -46,7 +46,7 @@ module Deepspace
 
             if(enemyWins)
                 s = station.speed
-                moves = @dice.SpaceStationMoves(s)
+                moves = @dice.spaceStationMoves(s)
                 if(!moves)
                     damage = enemy.damage
                     station.setPendingDamage(damage)
@@ -66,7 +66,7 @@ module Deepspace
         end
         
         def combat() 
-            state = @gameState.getState()
+            state = @gameState.state()
             if ((state== GameState::BEFORECOMBAT)||(state()==GameState::INIT))
                 result=combatGo(@currentStation,@currentEnemy)
             else 
