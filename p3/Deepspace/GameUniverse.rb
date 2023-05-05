@@ -43,7 +43,7 @@ module Deepspace
                 result = enemy.receiveShot(fire)
                 enemyWins=(result==ShotResult::RESIST)
             end
-
+A
             if(enemyWins)
                 s = station.speed
                 moves = @dice.spaceStationMoves(s)
