@@ -145,7 +145,7 @@ class SpaceStation {
     }
     
     public void mountShieldBooster(int i){
-        if (hangar != null){
+        if (hangar != null && i!=-1){
             ShieldBooster aux = hangar.removeShieldBooster(i);
             if (aux != null){
                 shieldBoosters.add(aux);
@@ -154,7 +154,7 @@ class SpaceStation {
     }
     
     public void mountWeapon(int i){
-        if (hangar != null){
+        if (hangar != null && i!=-1){
             Weapon aux = hangar.removeWeapon(i);
             if (aux != null){
                 weapons.add(aux);
