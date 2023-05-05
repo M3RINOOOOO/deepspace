@@ -1,3 +1,4 @@
+#encoding:utf-8
 require_relative "WeaponType.rb"
 require_relative "DamageToUI.rb"
 require_relative "Weapon.rb"

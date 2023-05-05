@@ -1,3 +1,4 @@
+#encoding:utf-8
 require_relative "EnemyToUI.rb"
 require_relative "ShotResult.rb"
 

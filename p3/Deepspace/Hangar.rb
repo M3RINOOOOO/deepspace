@@ -1,11 +1,14 @@
-require_relative "HangarToUI.rb"
+#encoding:utf-8
+require_relative 'HangarToUI'
+require_relative 'ShieldBooster'
+require_relative 'Weapon'
 
 module Deepspace
 	class Hangar
 		def initialize(_maxElements)
 			@maxElements=_maxElements
-            @shieldBoosters = Array.new()  
-            @weapons = Array.new()
+            @shieldBoosters = []
+            @weapons = []
 		end
 				
 		def self.newCopy(h)
@@ -22,12 +25,12 @@ module Deepspace
 		end
 		
 		def spaceAvailable()
-			return @maxElements > (@weapons.count+@shieldBooster.count)
+			return @maxElements > (@weapons.count+@shieldBoosters.count)
 		end
 		
 		def addWeapon(w)
 			if spaceAvailable()
-				@weapons >> w
+				@weapons.push(w)
 				return true
 			else
 				return false
@@ -36,7 +39,7 @@ module Deepspace
 		
 		def addShieldBooster(w)
 			if spaceAvailable()
-				@shieldBooster >> w
+				@shieldBoosters.push(w)
 				return true
 			else
 				return false
@@ -44,40 +47,28 @@ module Deepspace
 		end
 		
 		def removeShieldBooster(s)
-			return shieldBooster.delete_at(s)
+			if ( @shieldBoosters[s] != nil)
+                aux = @shieldBoosters[s]
+                @shieldBoosters.delete_at(s)
+                return aux
+            else 
+                return nil
+            end
 		end
 		
 		def removeWeapon(w)
-			return weapons.delete_at(w)
+			if (@weapons[w] != nil)
+                aux = @weapons[w]
+                @weapons.delete_at(w)
+                return aux
+            else 
+                return nil
+            end
 		end
 		
 		def to_s()
 			getUIversion().to_s
-		end
-		
+		end		
 	end
 end	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+

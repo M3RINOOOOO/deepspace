@@ -1,6 +1,6 @@
 #encoding:utf-8
-require_relative "WeaponType.rb"
-require_relative "WeaponToUI.rb"
+require_relative "WeaponType"
+require_relative "WeaponToUI"
 module Deepspace
     class Weapon
         def initialize(_name,_type,_uses)
@@ -11,21 +11,15 @@ module Deepspace
         def self.newCopy(w)
             Weapon.new(w.name,w.type,w.uses)
         end     
-        def name()
-            @name
-        end
-        def type()
-            @type
-        end 
-        def uses()
-            @uses
-        end
+
+        attr_reader:name,:type,:uses
+
         def power()
             @type.power()
         end 
         def useIt()
-            if (uses>0)
-                uses = uses - 1
+            if (@uses>0)
+                @uses = @uses - 1
                 return power()
             else 
                 return 1.0

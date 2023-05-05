@@ -1,5 +1,5 @@
 #encoding:utf-8
-require_relative "ShieldToUI.rb"
+require_relative "ShieldToUI"
 module Deepspace
     class ShieldBooster
         def initialize(_name,_boost,_uses)
@@ -12,17 +12,7 @@ module Deepspace
             ShieldBooster.new(s.name,s.boost,s.uses)
         end 
 
-        def name()
-            @name
-        end
-
-        def boost()
-            @boost
-        end
-        
-        def uses()
-            @uses
-        end
+        attr_reader:name,:boost,:uses
         
         def useIt()
             if (@uses > 0)

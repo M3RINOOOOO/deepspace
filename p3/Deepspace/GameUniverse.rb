@@ -39,7 +39,7 @@ module Deepspace
                     enemyWins=true
                 end
             else    
-                fire = station.fire()
+                fire = station.fire
                 result = enemy.receiveShot(fire)
                 enemyWins=(result==ShotResult::RESIST)
             end
@@ -67,7 +67,7 @@ module Deepspace
         
         def combat() 
             state = @gameState.getState()
-            if ((state== GameState::BEFORECOMBAT)||(state()==GameState.INIT))
+            if ((state== GameState::BEFORECOMBAT)||(state()==GameState::INIT))
                 result=combatGo(@currentStation,@currentEnemy)
             else 
                 result = CombatResult::NOCOMBAT
@@ -104,12 +104,12 @@ module Deepspace
             end
         end
         
-        def getState() 
+        def state() 
             @gameState.state
         end
 
         def getUIversion()
-            GameUniverseToUI.new(self)
+            GameUniverseToUI.new(@currentStation, @currentEnemy)
         end
 
         def haveAWinner()
@@ -153,12 +153,12 @@ module Deepspace
         def nextTurn() 
             out = false
             state = @gameState.state
-            if(state == GameState.AFTERCOMBAT)
+            if(state == GameState::AFTERCOMBAT)
                 stationState = @currentStation.validState()
                 if(stationState)
-                    @currentStationIndex = (@currentStationIndex+1)% @spaceStations.count
+                    @currentStationIndex = (@currentStationIndex+1)% (@spaceStations.count)
                     @turns += 1
-                    @currentStation = @spaceStations.at(@currentStationIndex)
+                    @currentStation = @spaceStations[@currentStationIndex]
                     @currentStation.cleanUpMountedItems()
                     dealer = CardDealer.instance
                     @currentEnemy = dealer.nextEnemy()

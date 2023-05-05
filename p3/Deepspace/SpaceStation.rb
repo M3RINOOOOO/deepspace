@@ -1,6 +1,7 @@
-require_relative "ShotResult.rb"
-require_relative "CardDealer.rb"
-
+#encoding:utf-8
+require_relative "ShotResult"
+require_relative "CardDealer"
+require_relative 'SpaceStationToUI'
 
 module Deepspace
 	class SpaceStation
@@ -21,24 +22,21 @@ module Deepspace
 		end
 		
 		def assignFuelValue(f)
-			if(f<MAXFUEL)
+			if(f<@MAXFUEL)
 				@fuelUnits = f
 			else
-				@fuelUnits = MAXFUEL
+				@fuelUnits = @MAXFUEL
 			end
 		end
 		
 		def cleanPendingDamage()
-			if(@pendindDamage.hasNoEffect())
+			if(@pendingDamage.hasNoEffect())
 				@pendingDamage = nil
 			end
 		end
 		
-		def self.newSpaceStation(n,supplies)
-			new(supplies.ammoPower,supplies.fuelUnits,n,0,supplies.shieldPower,nil,nil,nil,nil)
-		end
 		
-		attr_reader:ammoPower,:fuelUnits,:hangar,:name,:nMedals,:pendingDamage,:shieldBooster,:shieldPower,:weapons
+		attr_reader:ammoPower,:fuelUnits,:hangar,:name,:nMedals,:pendingDamage,:shieldBoosters,:shieldPower,:weapons
 		
 		def cleanUpMountedItems()
 			@weapons.delete_if {|w| w.uses == 0}
@@ -50,12 +48,12 @@ module Deepspace
 		end
 		
 		def discardShieldBooster(i)
-			size = @shieldBooster.size()
+			size = @shieldBoosters.count
 			if(i >= 0 && i < size)
-				s = shieldBooster.remove(i)
-				if(@pendingDamage != null)
+				s = @shieldBoosters.delete_at(i)
+				if(@pendingDamage != nil)
 					discardShield(s)
-					cleanPendindDamage()
+					cleanPendingDamage()
 				end
 			end
 			
@@ -63,39 +61,39 @@ module Deepspace
 		
 		def discardShieldBoosterInHangar(i)
 			if(@hangar != nil)
-				hangar.removeShieldBooster(i)
+				@hangar.removeShieldBooster(i)
 			end
 		end
 		
 		def discardWeapon(i)
 			size = @weapons.size()
 			if(i >= 0 && i < size)
-				w = weapons.remove(i)
+				w = @weapons.delete_at(i)
 				if(@pendingDamage != null)
 					discardWeapon(w)
-					cleanPendindDamage()
+					cleanPendingDamage()
 				end
 			end
 		end
 		
 		def discardWeaponInHangar(i)
 			if(@hangar != nil)
-				hangar.removeWeapon(i)
+				@hangar.removeWeapon(i)
 			end
 		end
 		
 		def fire()
-			size = @weapons.size()
-			factor = 1
-			for i in(0..size)
- 				w = weapons.next()
- 				factor *= w.useIt()
-			end
-			return @ammoPower * factor
+			factor=1
+        
+            for w in @weapons do
+                factor*=w.useIt()
+            end
+            
+            return @ammoPower*factor
 		end
 		
-		def getSpeed()
-			return @fuelUnits/MAXFUEL
+		def speed()
+			return @fuelUnits/@MAXFUEL
 		end
 		
 		def getUIversion()
@@ -103,37 +101,39 @@ module Deepspace
 		end
 		
 		def mountShieldBooster(i)
-			if(@hangar != nil)
-				aux = ShieldBooster(@hangar.removeShieldBooster(i))
-				if(aux != nil)
-					@shieldBooster << aux
-				end
-			end
+			if (@hangar != nil)
+                aux = @hangar.removeShieldBooster(i)
+                if (aux != nil)
+                    @shieldBoosters.push(aux)
+                end 
+            end 
 		end
 		
 		def mountWeapon(i)
-			if(@hangar != nil)
-				aux = Weapon(@hangar.removeWeapon(i))
-				if(aux != nil)
-					@weapons << aux
-				end
-			end
+			if (@hangar != nil)
+                aux = @hangar.removeWeapon(i)
+                if (aux != nil)
+                    @weapons.push(aux)
+                end 
+            end 
 		end
 		
 		def move()
-			if(@fuelUnits*getSpeed() <= @fuelUnits)
-				@fuelUnits -= @fuelUnits*getSpeed()
-			end
+			if (@fuelUnits -  speed() >= 0)
+                @fuelUnits -=  speed()
+            else 
+                @fuelUnits = 0
+            end
 		end
 		
 		def protection()
-			size = @shieldBooster.size()
-			factor = 1
-			for i in(0..size)
-				s = shieldBoosters.next()
-				factor *= s.useIt()
-			end
-			return @shieldPower*factor
+			factor=1
+        
+            for s in @shieldBoosters do
+                factor*=s.useIt()
+            end
+            
+            return @shieldPower*factor
 		end
 		
 		def receiveHangar(h)
@@ -151,16 +151,19 @@ module Deepspace
 		end
 		
 		def receiveShot(shot)
-			myProtection = protection()
-			if(myProtection >= shot)
-				@shieldPower -= @@SHIELDLOSTPERUNITSHOT*shot
-				@shieldPower = [0.0,@shielPower].max()
-				return ShotResult::RESIST
-			else
-				@shieldPower = 0.0
-				return ShotResult::DONOTRESIST
-			end
-			
+			myProtection= protection()
+            if(myProtection>=shot)
+                remaining=@SHIELDLOSSPERUNITSHOT*shot
+                if (@shieldPower-remaining>=0)
+                    @shieldPower = @shieldPower-remaining
+                else 
+                    @shieldPower = 0
+                end                
+                result= ShotResult::RESIST
+            else
+                result= ShotResult::DONOTRESIST
+            end
+            return result
 		end
 		
 		def receiveSupplies(s)
@@ -178,42 +181,51 @@ module Deepspace
 		end
 		
 		def setLoot(loot)
-			dealer = CardDealer.instance
-			h = loot.nHangars()
-			if(h>0)
-				hangar = dealer.nextHangar()
-				receiveHangar(hangar)
-			end
-			elements = loot.nSupplies()
-			for i in(1..elements)
-				sup = dealer.nextSuppliesPackage()
-				receiveSupplies(sup)
-			end
-			elements = loot.nWeapons()
-			for i in(1..elements)
-				weap = dealer.nextWeapon()
-				receiveWeapon(weap)
-			end
-			elements = loot.nShields()
-			for i in(1..elements)
-				sh = dealer.nextShieldBooster()
-				receiveShieldBooster(sh)
-			end
-			medals = loot.nMedals()
-			@nMedals += medals	
-			
+			dealer = CardDealer.instance()
+            h = loot.nHangars()
+            
+            if (h>0)
+                hangar=dealer.nextHangar()
+                receiveHangar(hangar)
+            end
+            
+            elements= loot.nSupplies()
+
+            elements.times do 
+                sup= dealer.nextSuppliesPackage()
+                receiveSupplies(sup)
+            end
+            
+            elements= loot.nWeapons()
+            
+            elements.times do 
+                weap=dealer.nextWeapon()
+                receiveWeapon(weap)
+            end
+            
+            elements= loot.nShields()
+            
+            elements.times do 
+                sh= dealer.nextShieldBooster()
+                receiveShieldBooster(sh)
+            end
+            
+            medals=loot.nMedals()
+            @nMedals+=medals
 		end
 		
 		def setPendingDamage(d)
-			@pendindDamage = d.adjust(weapons,shieldBooster)
+			@pendingDamage = d.adjust(@weapons,@shieldBooster)
 		end
 		
 		def validState()
-			return (@pendindDamage == nil || @pendingDamage.hasNoEffect())
+			return (@pendingDamage == nil || @pendingDamage.hasNoEffect())
 		end
 		
+		def to_s()
+            getUIversion().to_s
+        end 
+	
+	
 	end
-	
-	
-	
 end			
