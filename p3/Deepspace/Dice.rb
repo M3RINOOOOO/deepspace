@@ -13,8 +13,7 @@ module Deepspace
         def initWithNHangars()
             prob = @generator.rand
             if prob < @NHANGARSPROB
-                #0 CAMBIAR   
-                1
+                0 
             else 
                 1
             end 

@@ -36,16 +36,16 @@ module Deepspace
         end 
 
         def arrayContainsType(w,t)
-            out = @@not_used
             i = 0
-            w.each do |weapon|
-                if weapon == t 
-                    out = i
-                    break
-                end 
-                i+=1
+            w.each do |weapon_aux|
+                if weapon_aux.type == t
+                    return i
+                else
+                    i += 1
+                end
             end
-            return out
+            # No se encontró elemento
+            return -1
         end 
 
         def adjust(w,s)
