@@ -37,6 +37,7 @@ class SpaceStation {
     }
     
     SpaceStation(String n,SuppliesPackage supplies){
+        nMedals = 0;
         weapons = new ArrayList<>();
         shieldBoosters = new ArrayList<>();
         name = n;
@@ -45,6 +46,7 @@ class SpaceStation {
         pendingDamage = null;
         
     }
+    
     
     public void cleanUpMountedItems(){
        weapons.removeIf(w->(w.getUses() == 0));

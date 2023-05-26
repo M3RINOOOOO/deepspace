@@ -15,6 +15,7 @@ public class GameUniverse {
     private static final int WIN = 10;
     private int currentStationIndex;
     private int turns;
+    private boolean haveSpaceCity;
     private GameStateController gameState;
     private EnemyStarShip currentEnemy;
     private ArrayList<SpaceStation> spaceStations;
@@ -74,6 +75,11 @@ public class GameUniverse {
         else{
             Loot aloot = enemy.getLoot();
             station.setLoot(aloot);
+            if(currentStation.getEfficient()){
+                makeStationEfficient();
+            }else if(currentStation.spaceCity()){
+                createSpaceCity();
+            }
             combatResult = CombatResult.STATIONWINS;
         }
         gameState.next(turns, spaceStations.size());
@@ -192,5 +198,29 @@ public class GameUniverse {
         return result;
     }
     
+    public void makeStationEfficient(){
+        
+        if(dice.extraEfficiency()){
+            currentStation = new PowerEfficientSpaceStation(currentStation);
+        }
+        else{
+            currentStation = new BetaPowerEfficientSpaceStation(currentStation);
+        }
+        
+    }
+    
+    public void createSpaceCity(){
+        
+        if(haveSpaceCity == false){
+            
+            
+            ArrayList<SpaceStation> aux = new ArrayList<SpaceStation>(spaceStations);
+            aux.remove(currentStation);
+            currentStation = new SpaceCity(currentStation,aux );
+            haveSpaceCity = true;
+        }
+        
+        
+    }
     
 }

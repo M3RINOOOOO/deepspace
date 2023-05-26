@@ -9,6 +9,7 @@ import java.util.Random;
  * @author Sergio
  */
 public class Dice {
+    private static final float EXTRAEFFICIENCYPROB = 0.8f;
     private final float NHANGARSPROB;
     private final float NSHIELDSPROB;
     private final float NWEAPONSPROB;
@@ -65,6 +66,14 @@ public class Dice {
         boolean ret = false;
         if(generator.nextFloat()<speed)
             ret = true;
+        return ret;
+    }
+    
+    boolean extraEfficiency(){
+        boolean ret = false;
+        if(generator.nextFloat()<EXTRAEFFICIENCYPROB)
+            ret = true;
+        
         return ret;
     }
     
