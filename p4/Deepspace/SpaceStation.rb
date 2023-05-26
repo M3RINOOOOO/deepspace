@@ -21,6 +21,20 @@ module Deepspace
 			@fuelUnits = supplies.fuelUnits
 						
 		end
+
+		def self.newCopy(station)
+			@MAXFUEL = 100
+			@SHIELDLOSSPERUNITSHOT = 0.1
+			@name = station.name
+			@nMedals = station.nMedals
+			@hangar = station.hangar
+			@pendingDamage = station.pendingDamage
+			@shieldBoosters = station.shieldBoosters
+			@weapons = station.weapons
+			@ammoPower= station.ammoPower
+			@shieldPower= station.shieldPower
+			@fuelUnits = station.fuelUnits
+		end
 		
 		def assignFuelValue(f)
 			if(f<@MAXFUEL)

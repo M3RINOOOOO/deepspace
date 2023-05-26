@@ -7,6 +7,7 @@ module Deepspace
             @NSHIELDSPROB = 0.25
             @NWEAPONSPROB = 0.33
             @FIRSTSHOTPROB= 0.5
+            @EXTRAEFFICIENCYPROB= 0.8
             @generator = Random.new()
         end     
         
@@ -57,6 +58,11 @@ module Deepspace
             prob = @generator.rand
             prob < speed
         end 
+
+        def extraEfficiency()
+            prob = @generator.rand
+            prob < @EXTRAEFFICIENCYPROB
+        end 
     end 
     #dado = Dice.new()
     #puts dado.initWithNHangars()
@@ -65,4 +71,5 @@ module Deepspace
     #puts dado.whoStarts(4)
     #puts dado.firstShot()
     #puts dado.spaceStationMoves(0.5)
+    #puts dado.extraEfficiency()
 end
