@@ -6,7 +6,13 @@ module Deepspace
     class PowerEfficientSpaceStation < SpaceStation
         @@EFFICIENCYFACTOR = 1.1
         def initialize(station)
-            super(station)
+            super(station.name(),SuppliesPackage.new(station.ammoPower(),station.fuelUnits(),station.shieldPower()))
+            @nMedals = station.nMedals
+				
+	    @hangar = station.hangar
+            @pendingDamage = station.pendingDamage
+	    @shieldBoosters = station.shieldBoosters 
+	    @weapons = station.weapons 
         end
         def fire()
             super*@@EFFICIENCYFACTOR
@@ -24,7 +30,7 @@ module Deepspace
         end
         def getUIversion()
 			Deepspace::PowerEfficientSpaceStationToUI.new(self)
-		end
+	end
     end
     #station = SpaceStation.new("p",SuppliesPackage.new(1,2,3))
     #puts station.fire()

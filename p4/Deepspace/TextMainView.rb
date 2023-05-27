@@ -327,7 +327,12 @@ class TextMainView
   def wonGameMessage() 
     puts "\n\tHAS GANADO LA PARTIDA"
   end
-    
+  
+  def conversionMessage()
+    wonCombatMessage()
+    puts "Te has transformado"
+  end
+  
   def noCombatMessage()
     puts "No puedes combatir en este momento"
   end

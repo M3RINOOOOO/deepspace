@@ -2,6 +2,7 @@
 require_relative "ShotResult"
 require_relative "CardDealer"
 require_relative 'SpaceStationToUI'
+require_relative "Transformation"
 
 module Deepspace
 	class SpaceStation
@@ -228,7 +229,7 @@ module Deepspace
             medals=loot.nMedals()
             @nMedals+=medals
 
-			if(loot.getEfficient())
+			if(loot.efficient())
 				return Transformation::GETEFFICIENT
 			elsif(loot.spaceCity())
 				return Transformation::SPACECITY

@@ -13,6 +13,7 @@ require_relative 'EnemyStarShip'
 require_relative 'SpaceCity'
 require_relative 'PowerEfficientSpaceStation'
 require_relative 'BetaPowerEfficientSpaceStation'
+require_relative 'Transformation'
 
 module Deepspace
     class GameUniverse
@@ -61,13 +62,16 @@ module Deepspace
                 end
             else
                 aLoot = enemy.loot
-                station.setLoot(aLoot)
-                if(aLoot.getEfficient)
-                    makeStationEfficient()
-                elsif(aLoot.spaceCity)
+                trans = station.setLoot(aLoot)
+                if(trans == Transformation::GETEFFICIENT) then
+                    makeStationEfficient()  
+                    combatResult=CombatResult::STATIONWINSANDCONVERTS                  
+                elsif(trans == Transformation::SPACECITY) then
                     createSpaceCity()
+                    combatResult=CombatResult::STATIONWINSANDCONVERTS
+                else
+                   combatResult=CombatResult::STATIONWINS
                 end
-                combatResult=CombatResult::STATIONWINS
             end
 
             @gameState.next(@turns,@spaceStations.count)
@@ -190,7 +194,7 @@ module Deepspace
             if(@haveSpaceCity == false)
                 aux = @spaceStations
                 aux.delete(@currentStation)
-                currentStation = SpaceCity.new(@currentStation,aux)
+                @currentStation = SpaceCity.new(@currentStation,aux)
                 @haveSpaceCity = true
             end
         end
