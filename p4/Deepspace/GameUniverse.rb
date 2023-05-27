@@ -10,7 +10,9 @@ require_relative 'ShotResult'
 require_relative 'SpaceStation'
 require_relative 'CardDealer'
 require_relative 'EnemyStarShip'
-
+require_relative 'SpaceCity'
+require_relative 'PowerEfficientSpaceStation'
+require_relative 'BetaPowerEfficientSpaceStation'
 
 module Deepspace
     class GameUniverse
@@ -24,6 +26,7 @@ module Deepspace
 			@currentEnemy= nil
 			@currentStationIndex= @@not_used
             @spaceStations = Array.new()
+            @haveSpaceCity = false
         end 
 
         def combatGo(station,enemy)
@@ -59,6 +62,11 @@ module Deepspace
             else
                 aLoot = enemy.loot
                 station.setLoot(aLoot)
+                if(aLoot.getEfficient)
+                    makeStationEfficient()
+                elsif(aLoot.spaceCity)
+                    createSpaceCity()
+                end
                 combatResult=CombatResult::STATIONWINS
             end
 
@@ -169,6 +177,23 @@ module Deepspace
             end 
             return result
         end 
+
+        def makeStationEfficient()
+            if(@dice.extraEfficiency)
+                @currentStation = PowerEfficientSpaceStation.new(@currentStation)
+            else 
+                @currentStation = BetaPowerEfficientSpaceStation.new(@currentStation)
+            end
+        end
+
+        def createSpaceCity()
+            if(@haveSpaceCity == false)
+                aux = @spaceStations
+                aux.delete(@currentStation)
+                currentStation = SpaceCity.new(@currentStation,aux)
+                @haveSpaceCity = true
+            end
+        end
 
         def to_s()
             getUIversion().to_s
