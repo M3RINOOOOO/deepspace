@@ -15,13 +15,7 @@ class PowerEfficientSpaceStation extends SpaceStation{
     private static final float EFFICIENCYFACTOR = 1.10f;
     
     PowerEfficientSpaceStation(SpaceStation station){             
-        super(station.getName(), new SuppliesPackage(station.getAmmoPower(), station.getFuelUnits(), station.getShieldPower()));       
-              
-        int nMedals = station.getNMedals();
-        ArrayList<Weapon> weapons = station.getWeapons();
-        ArrayList<ShieldBooster> shieldBoosters = station.getShieldBoosters();
-        Hangar hangar = station.getHangar();
-        Damage pendingDamage = station.getPendingDamage() ;
+        super(station);       
     }
     
     @Override
@@ -36,8 +30,8 @@ class PowerEfficientSpaceStation extends SpaceStation{
     @Override
     public Transformation setLoot(Loot loot){
        Transformation transformation = super.setLoot(loot);
-       if(transformation == SPACECITY)
-           transformation = NOTRANSFORMATION;
+       if(transformation == Transformation.SPACECITY)
+           transformation = Transformation.NOTRANSFORM;
        return transformation;
    
     }

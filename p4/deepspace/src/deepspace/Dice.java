@@ -9,7 +9,7 @@ import java.util.Random;
  * @author Sergio
  */
 public class Dice {
-    private static final float EXTRAEFFICIENCYPROB = 0.8f;
+    private final float EXTRAEFFICIENCYPROB;
     private final float NHANGARSPROB;
     private final float NSHIELDSPROB;
     private final float NWEAPONSPROB;
@@ -21,6 +21,7 @@ public class Dice {
         this.NSHIELDSPROB=0.25f;
         this.NWEAPONSPROB=0.33f;
         this.FIRSTSHOTPROB=0.5f;
+        EXTRAEFFICIENCYPROB = 0.8f;
         this.generator = new Random();
     }
     

@@ -14,6 +14,8 @@ public class Loot {
     private final int nShields;
     private final int nHangars;
     private final int nMedals;
+    private boolean getEfficient;
+    private boolean spaceCity;
     
     Loot(int Supplies, int Weapons, int Shields, int Hangars, int Medals){
         nSupplies = Supplies;
@@ -21,7 +23,19 @@ public class Loot {
         nShields = Shields;
         nHangars = Hangars;
         nMedals = Medals;
+        getEfficient = false;
+        spaceCity = false;
     }
+    
+    Loot(int Supplies, int Weapons, int Shields, int Hangars, int Medals, boolean ef, boolean city){
+        nSupplies = Supplies;
+        nWeapons = Weapons;
+        nShields = Shields;
+        nHangars = Hangars;
+        nMedals = Medals;
+        getEfficient = ef;
+        spaceCity = city;
+    }    
     
     int getNSupplies(){
         return nSupplies;
@@ -41,6 +55,14 @@ public class Loot {
     
     int getNMedals(){
         return nMedals;
+    }
+    
+    boolean getEfficient(){
+        return getEfficient;
+    }
+    
+    boolean spaceCity(){
+        return spaceCity;
     }
     
     LootToUI getUIversion(){

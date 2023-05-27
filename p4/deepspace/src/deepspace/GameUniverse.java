@@ -77,10 +77,11 @@ public class GameUniverse {
             station.setLoot(aloot);
             if(aloot.getEfficient()){
                 makeStationEfficient();
+                combatResult = CombatResult.STATIONWINSANDCONVERTS;
             }else if(aloot.spaceCity()){
                 createSpaceCity();
-            }
-            combatResult = CombatResult.STATIONWINS;
+                combatResult = CombatResult.STATIONWINSANDCONVERTS;
+            }else combatResult = CombatResult.STATIONWINS;
         }
         gameState.next(turns, spaceStations.size());
         
