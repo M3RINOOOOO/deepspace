@@ -75,9 +75,9 @@ public class GameUniverse {
         else{
             Loot aloot = enemy.getLoot();
             station.setLoot(aloot);
-            if(currentStation.getEfficient()){
+            if(aloot.getEfficient()){
                 makeStationEfficient();
-            }else if(currentStation.spaceCity()){
+            }else if(aloot.spaceCity()){
                 createSpaceCity();
             }
             combatResult = CombatResult.STATIONWINS;

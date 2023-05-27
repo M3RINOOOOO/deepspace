@@ -47,6 +47,23 @@ class SpaceStation {
         
     }
     
+    SpaceStation(SpaceStation station){
+        ammoPower = station.ammoPower;
+        fuelUnits = station.fuelUnits;
+        name = station.name;
+        nMedals = station.nMedals;
+        shieldPower = station.shieldPower;
+
+        if ( station.pendingDamage != null )
+            pendingDamage = station.pendingDamage.copy();
+        if ( station.weapons != null )
+            weapons = new ArrayList<>(station.weapons);
+        if ( station.shieldBoosters != null )
+            shieldBoosters = new ArrayList<>(station.shieldBoosters);
+        if ( station.hangar != null )
+            hangar = new Hangar(station.hangar);  
+    }
+    
     
     public void cleanUpMountedItems(){
        weapons.removeIf(w->(w.getUses() == 0));
@@ -226,7 +243,7 @@ class SpaceStation {
          return out;
     }
     
-    public void setLoot(Loot loot){
+    public Transformation setLoot(Loot loot){
         CardDealer dealer = CardDealer.getInstance();
         int h = loot.getNHangars();
         if(h>0){
@@ -254,6 +271,14 @@ class SpaceStation {
         
          int medals = loot.getNMedals();
          nMedals+=medals;
+         
+         if(loot.getEfficient()){
+            return Transformation.GETEFFICIENT;
+        }else if(loot.spaceCity()){
+            return Transformation.SPACECITY;
+        }else{
+            return Transformation.NOTRANSFORM;
+        }
     }
     
     public void setPendingDamage(Damage d){
