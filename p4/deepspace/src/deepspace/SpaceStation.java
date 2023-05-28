@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author cristobalmer
  */
-class SpaceStation {
+class SpaceStation implements SpaceFighter{
     private static final float MAXFUEL = 100f;
     private static final float SHIELDLOSSPERUNITSHOT = 0.1f;
     
@@ -108,6 +108,7 @@ class SpaceStation {
         }
     }
     
+    @Override
     public float fire(){
         int size = weapons.size();
         float factor = 1;
@@ -187,6 +188,7 @@ class SpaceStation {
         }
     }
     
+    @Override
     public float protection(){
         int size = shieldBoosters.size();
         float factor = 1;
@@ -212,6 +214,7 @@ class SpaceStation {
          return out;        
     }
     
+    @Override
     public ShotResult receiveShot(float shot){
         ShotResult out;
         float myProtection = protection();
