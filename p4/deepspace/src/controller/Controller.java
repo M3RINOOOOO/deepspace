@@ -76,9 +76,9 @@ public class Controller {
             case NOCOMBAT :
               view.noCombatMessage();
               break;
-              case STATIONWINSANDCONVERTS:
+            case STATIONWINSANDCONVERTS :
                 view.conversionMessage();
-              break;
+                break;
         }
     }
     
