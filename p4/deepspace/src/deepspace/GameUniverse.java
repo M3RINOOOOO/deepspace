@@ -74,12 +74,13 @@ public class GameUniverse {
         }
         else{
             Loot aloot = enemy.getLoot();
-            station.setLoot(aloot);
-            if(aloot.getEfficient()){
+            Transformation trans = station.setLoot(aloot);
+            if(trans == Transformation.GETEFFICIENT){
                 makeStationEfficient();
                 combatResult = CombatResult.STATIONWINSANDCONVERTS;
-            }else if(aloot.spaceCity()){
+            }else if(trans == Transformation.SPACECITY){
                 createSpaceCity();
+                
                 combatResult = CombatResult.STATIONWINSANDCONVERTS;
             }else combatResult = CombatResult.STATIONWINS;
         }
@@ -206,7 +207,9 @@ public class GameUniverse {
         }
         else{
             currentStation = new BetaPowerEfficientSpaceStation(currentStation);
+            
         }
+        spaceStations.set(currentStationIndex,currentStation);
         
     }
     
@@ -218,6 +221,7 @@ public class GameUniverse {
             ArrayList<SpaceStation> aux = new ArrayList<SpaceStation>(spaceStations);
             aux.remove(currentStation);
             currentStation = new SpaceCity(currentStation,aux );
+            spaceStations.set(currentStationIndex,currentStation);
             haveSpaceCity = true;
         }
         
