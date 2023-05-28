@@ -12,7 +12,7 @@ module Deepspace
 	
        
         def copy()
-            
+            return this.clone
             
         end    
 

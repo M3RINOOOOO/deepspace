@@ -185,16 +185,19 @@ module Deepspace
         def makeStationEfficient()
             if(@dice.extraEfficiency)
                 @currentStation = PowerEfficientSpaceStation.new(@currentStation)
+                @spaceStations[@currentStationIndex] = @currentStation
             else 
                 @currentStation = BetaPowerEfficientSpaceStation.new(@currentStation)
+                @spaceStations[@currentStationIndex] = @currentStation
             end
         end
 
         def createSpaceCity()
             if(@haveSpaceCity == false)
-                aux = @spaceStations
+                aux = @spaceStations.clone()
                 aux.delete(@currentStation)
                 @currentStation = SpaceCity.new(@currentStation,aux)
+                @spaceStations[@currentStationIndex] = @currentStation
                 @haveSpaceCity = true
             end
         end

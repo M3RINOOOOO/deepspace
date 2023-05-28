@@ -49,9 +49,9 @@ module Deepspace
 		
 		def discardWeapon(w)
 	    
-		      	indice = arrayContainsType(@weapons,w.type)
+		      	indice = @weapons.index(w.type)
 		        if indice != -1
-		            w.remove(indice)
+		            @weapons.delete_at(indice)
 		        end 
 		    
 		end 

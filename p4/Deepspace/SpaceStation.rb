@@ -68,7 +68,7 @@ module Deepspace
 			if(i >= 0 && i < size)
 				s = @shieldBoosters.delete_at(i)
 				if(@pendingDamage != nil)
-					discardShield(s)
+					@pendingDamage.discardShieldBooster()
 					cleanPendingDamage()
 				end
 			end
@@ -86,7 +86,7 @@ module Deepspace
 			if(i >= 0 && i < size)
 				w = @weapons.delete_at(i)
 				if(@pendingDamage != nil)
-					discardWeapon(w)
+					@pendingDamage.discardWeapon(w)
 					cleanPendingDamage()
 				end
 			end

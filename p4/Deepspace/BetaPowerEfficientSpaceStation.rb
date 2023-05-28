@@ -10,7 +10,7 @@ module Deepspace
             @dice = Dice.new()
         end
         def fire()
-            if dice.extraEfficiency()
+            if @dice.extraEfficiency()
                 super*@@EXTRAEFFICIENCY
             else 
                 super
