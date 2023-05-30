@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author Profe
  */
-class CardDealer {
+public class CardDealer {
     private static final CardDealer instance=new CardDealer();
     
     SafeSuppliesCardDeck suppliesPackages;

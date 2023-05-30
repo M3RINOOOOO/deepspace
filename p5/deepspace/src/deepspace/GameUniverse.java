@@ -32,7 +32,7 @@ public class GameUniverse {
         dice = new Dice();
         spaceStations = new ArrayList<SpaceStation>();
     }
-    
+
     CombatResult combat(SpaceStation station, EnemyStarShip enemy){
         CombatResult combatResult;
         boolean enemyWins;

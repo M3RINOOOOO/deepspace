@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author cristobalmer
  */
-class SpaceStation implements SpaceFighter{
+public class SpaceStation implements SpaceFighter{
     private static final float MAXFUEL = 100f;
     private static final float SHIELDLOSSPERUNITSHOT = 0.1f;
     
@@ -36,7 +36,7 @@ class SpaceStation implements SpaceFighter{
         }
     }
     
-    SpaceStation(String n,SuppliesPackage supplies){
+    public SpaceStation(String n,SuppliesPackage supplies){
         nMedals = 0;
         weapons = new ArrayList<>();
         shieldBoosters = new ArrayList<>();

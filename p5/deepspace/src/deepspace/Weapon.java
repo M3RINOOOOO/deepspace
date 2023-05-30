@@ -27,7 +27,7 @@ public class Weapon implements CombatElement {
         this.uses = s.uses;
     }
     
-    WeaponToUI getUIversion(){
+    public WeaponToUI getUIversion(){
         return new WeaponToUI(this);
     }
     
