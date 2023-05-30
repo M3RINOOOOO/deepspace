@@ -36,7 +36,7 @@ public class Controller {
       game = aGame;
       view = aView;
     }
-    
+      
     public void start() {
         game.init(view.readNamePlayers());
         view.updateView();
