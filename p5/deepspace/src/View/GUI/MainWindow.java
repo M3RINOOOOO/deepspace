@@ -100,9 +100,47 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
     public String getAppName() {
         return appName;
     }
-
     
+    @Override
+    public void nextTurnNotAllowedMessage() {
+        JOptionPane.showMessageDialog(this, "No puedes avanzar de turno, \nno has cumplido tu castigo.", getAppName(), JOptionPane.ERROR_MESSAGE);
+    }
+    
+    @Override
+    public void lostCombatMessage() {
+        JOptionPane.showMessageDialog(this, "Has PERDIDO el combate. \nCumple tu castigo.", getAppName(), JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    @Override
+    public void escapeMessage() {
+        JOptionPane.showMessageDialog(this, "Has logrado ESCAPAR. \nEres un gallina espacial.", getAppName(), JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    @Override
+    public void wonCombatMessage() {
+        JOptionPane.showMessageDialog(this, "Has GANADO el combate. \nDisfruta de tu botín.", getAppName(), JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    @Override
+    public void wonGameMessage() {
+        JOptionPane.showMessageDialog(this, "ENHORABUENA!!. \nHas ganado el juego!!.", getAppName(), JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    @Override
+    public void conversionMessage() {
+        if(Controller.getInstance().getUIversion().getCurrentEnemy().getLoot().isGetEfficient()){
+            JOptionPane.showMessageDialog(this, "Has GANADO el combate. \nAdemás te has CONVERTIDO en una estación EFICIENTE. \nDisfruta de tu botín.", getAppName(), JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Has GANADO el combate. \nAdemás te has CONVERTIDO en una CIUDAD ESPACIAL. \nDisfruta de tu botín.", getAppName(), JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
+    @Override
+    public void noCombatMessage() {
+        JOptionPane.showMessageDialog(this, "No puedes combatir en este momento.", getAppName(), JOptionPane.ERROR_MESSAGE);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
