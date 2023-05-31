@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public interface DeepSpaceView {
   public void updateView();
   public void showView();
-  public String getAppName();
   // Inputs
   public ArrayList<String> readNamePlayers();
   // Outputs
@@ -28,5 +27,4 @@ public interface DeepSpaceView {
   public void wonGameMessage();
   public void conversionMessage();
   public void noCombatMessage();
-  public void errorInNamesMessage();
 }

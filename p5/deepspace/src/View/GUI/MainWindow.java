@@ -91,12 +91,12 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
         return (JOptionPane.showConfirmDialog(this, "¿Estás segur@ que deseas salir?", getAppName(), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
     }
     
-    @Override
+    
     public void errorInNamesMessage() {
         JOptionPane.showMessageDialog(this,"Se necesitan como mínimo dos jugadores","Error",JOptionPane.INFORMATION_MESSAGE);
     }
     
-    @Override 
+    
     public String getAppName() {
         return appName;
     }
