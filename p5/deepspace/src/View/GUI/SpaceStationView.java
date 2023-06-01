@@ -11,6 +11,7 @@ import deepspace.ShieldToUI;
 import deepspace.HangarToUI;
 import java.awt.Component;
 import controller.Controller;
+import deepspace.GameState;
 /**
  *
  * @author crist
@@ -73,8 +74,10 @@ public class SpaceStationView extends javax.swing.JPanel {
             }
         
         }
+       
         repaint();
         revalidate();
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,6 +232,17 @@ public class SpaceStationView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     public void updateView(){      
        setSpaceStation(Controller.getInstance().getUIversion().getCurrentStation());
+       if(Controller.getInstance().getState() == GameState.INIT || Controller.getInstance().getState() == GameState.AFTERCOMBAT){
+           discardButton.setEnabled(panelHangarStation.getComponentCount() != 0 || panelShieldsMounted.getComponentCount() != 0 
+                                || panelWeaponsMounted.getComponentCount() != 0);
+            mountButton.setEnabled(panelHangarStation.getComponentCount() != 0);
+            discardHangarButton.setEnabled(Controller.getInstance().getUIversion().getCurrentStation().getHangar() != null);
+       }else{
+           discardButton.setEnabled(false);
+            mountButton.setEnabled(false);
+            discardHangarButton.setEnabled(false);
+       }
+       
     }
     
     private void mountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mountButtonActionPerformed
@@ -267,7 +281,7 @@ public class SpaceStationView extends javax.swing.JPanel {
         ArrayList<Integer> selectedWeapons = new ArrayList<>();
         int i = 0;
         for (Component w : panelHangarStation.getComponents()) {
-            if(w.getClass() == WeaponView.class)
+            if(w instanceof WeaponView)
                 if (((WeaponView) w).isSelected()) {
                     selectedWeapons.add(i);
                 }
@@ -292,7 +306,7 @@ public class SpaceStationView extends javax.swing.JPanel {
         ArrayList<Integer> selectedShields = new ArrayList<>();
         int i = 0;
         for (Component s : panelHangarStation.getComponents()) {
-            if(s.getClass() == ShieldView.class)
+            if(s instanceof ShieldView)
                 if (((ShieldView) s).isSelected()) {
                     selectedShields.add(i);
                 }
@@ -301,22 +315,7 @@ public class SpaceStationView extends javax.swing.JPanel {
         return selectedShields;
     }
     
-    ArrayList<Integer> getSelectedItemsInHangar () {
-        ArrayList<Integer> selectedItems = new ArrayList<>();
-        int i = 0;
-        for (Component c : panelHangarStation.getComponents()) {
-            if(c.getClass() == WeaponView.class)
-                if (((WeaponView) c).isSelected()) {
-                    selectedItems.add(i);
-                }
-            if(c.getClass() == ShieldView.class)
-                if (((ShieldView) c).isSelected()) {
-                    selectedItems.add(i);
-                }
-            i++;
-        }
-        return selectedItems;
-    }
+    
     
     
     

@@ -7,6 +7,7 @@ import View.DeepSpaceView;
 import controller.Controller;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import deepspace.GameState;
 
 
 import deepspace.SpaceStationToUI;  //BORRAR
@@ -26,6 +27,7 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
     
     private String appName = "DeepSpace";
     private SpaceStationView spaceStationView;
+    private EnemyStarShipView enemyView;
     
 
     public static MainWindow getInstance () {
@@ -41,7 +43,9 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
         initComponents();
         setTitle (appName);
         spaceStationView = new SpaceStationView();
-        jPanel2.add(spaceStationView);
+        enemyView = new EnemyStarShipView();
+        currentStation.add(spaceStationView);
+        Enemigo.add(enemyView);
         repaint();
         setLocationRelativeTo(null);
         
@@ -57,10 +61,14 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
         
     }
     
-    
+    @Override
     public void updateView(){      
         
         spaceStationView.setSpaceStation(Controller.getInstance().getUIversion().getCurrentStation());
+        spaceStationView.updateView();
+        enemyView.setEnemy(Controller.getInstance().getUIversion().getCurrentEnemy());
+        nextTurn.setEnabled(Controller.getInstance().getState() == GameState.AFTERCOMBAT);
+        combat.setEnabled(Controller.getInstance().getState() == GameState.BEFORECOMBAT || Controller.getInstance().getState() == GameState.INIT);
     }
     
     @Override
@@ -152,8 +160,10 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
 
         nextTurn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
+        currentStation = new javax.swing.JPanel();
         combat = new javax.swing.JButton();
+        Enemigo = new javax.swing.JPanel();
+        exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,12 +174,19 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
             }
         });
 
-        jScrollPane1.setViewportView(jPanel2);
+        jScrollPane1.setViewportView(currentStation);
 
         combat.setText("Combatir");
         combat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combatActionPerformed(evt);
+            }
+        });
+
+        exit.setText("Salir");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
             }
         });
 
@@ -180,22 +197,31 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1057, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 988, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Enemigo, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nextTurn)
                         .addGap(18, 18, 18)
-                        .addComponent(combat)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(combat)
+                        .addGap(18, 18, 18)
+                        .addComponent(exit)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(169, 169, 169)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Enemigo, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nextTurn)
-                    .addComponent(combat))
+                    .addComponent(combat)
+                    .addComponent(exit))
                 .addContainerGap())
         );
 
@@ -215,11 +241,18 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
          updateView();
     }//GEN-LAST:event_combatActionPerformed
 
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        // TODO add your handling code here:
+        Controller.getInstance().finish(0);
+    }//GEN-LAST:event_exitActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Enemigo;
     private javax.swing.JButton combat;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel currentStation;
+    private javax.swing.JButton exit;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton nextTurn;
     // End of variables declaration//GEN-END:variables

@@ -65,7 +65,7 @@ public class EnemyStarShipView extends javax.swing.JPanel {
         loot_enemigo = new javax.swing.JPanel();
         damage_enemigo = new javax.swing.JPanel();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         titulo_enemigo.setText("Enemigo :");
 
@@ -81,29 +81,7 @@ public class EnemyStarShipView extends javax.swing.JPanel {
 
         loot_enemigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        javax.swing.GroupLayout loot_enemigoLayout = new javax.swing.GroupLayout(loot_enemigo);
-        loot_enemigo.setLayout(loot_enemigoLayout);
-        loot_enemigoLayout.setHorizontalGroup(
-            loot_enemigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 303, Short.MAX_VALUE)
-        );
-        loot_enemigoLayout.setVerticalGroup(
-            loot_enemigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 88, Short.MAX_VALUE)
-        );
-
         damage_enemigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-
-        javax.swing.GroupLayout damage_enemigoLayout = new javax.swing.GroupLayout(damage_enemigo);
-        damage_enemigo.setLayout(damage_enemigoLayout);
-        damage_enemigoLayout.setHorizontalGroup(
-            damage_enemigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        damage_enemigoLayout.setVerticalGroup(
-            damage_enemigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -126,7 +104,7 @@ public class EnemyStarShipView extends javax.swing.JPanel {
                             .addComponent(nombre_enemigo)))
                     .addComponent(loot_enemigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(damage_enemigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
