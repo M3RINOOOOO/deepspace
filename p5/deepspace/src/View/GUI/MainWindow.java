@@ -25,7 +25,7 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
     private static MainWindow instance = null;
     
     private String appName = "DeepSpace";
-    private StationView stationView;
+    private SpaceStationView stationView;
     
 
     public static MainWindow getInstance () {
@@ -196,7 +196,7 @@ public class MainWindow extends javax.swing.JFrame implements DeepSpaceView{
         CardDealer dealer = CardDealer.getInstance();
      
         SpaceStation sp = new SpaceStation("ESTACION DE PRUEBA",dealer.nextSuppliesPackage());
-        StationView s = new StationView();
+        SpaceStationView s = new SpaceStationView();
         s.setStation(sp.getUIversion());
         jPanel2.add(s);
 

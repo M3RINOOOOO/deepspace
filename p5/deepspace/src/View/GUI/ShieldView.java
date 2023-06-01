@@ -3,20 +3,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package View.GUI;
+import deepspace.ShieldToUI;
 
 /**
  *
  * @author crist
  */
-public class ShieldView extends javax.swing.JPanel {
-
+public class ShieldView extends javax.swing.JPanel implements CombatElementView{
+    
+    private boolean selected = false;
+    
     /**
      * Creates new form ShieldView
      */
     public ShieldView() {
         initComponents();
+        setOpaque(selected);
     }
-
+    
+    @Override
+    public boolean isSelected () {
+        return selected;
+    }
+    
+    void setShield(ShieldToUI shield){
+        power.setText(Float.toString(shield.getBoost()));
+        uses.setText(Integer.toString(shield.getUses()));
+        revalidate();
+        repaint();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +41,68 @@ public class ShieldView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        titulo_potencia = new javax.swing.JLabel();
+        titulo_usos = new javax.swing.JLabel();
+        power = new javax.swing.JLabel();
+        uses = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 102));
+        setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+
+        titulo_potencia.setText("potencia :");
+
+        titulo_usos.setText("usos :");
+
+        power.setText("jLabel1");
+
+        uses.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titulo_potencia)
+                    .addComponent(titulo_usos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(uses)
+                    .addComponent(power))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titulo_potencia)
+                    .addComponent(power))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titulo_usos)
+                    .addComponent(uses))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        selected = !selected;
+        setOpaque (selected);
+        repaint();
+    }//GEN-LAST:event_formMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel power;
+    private javax.swing.JLabel titulo_potencia;
+    private javax.swing.JLabel titulo_usos;
+    private javax.swing.JLabel uses;
     // End of variables declaration//GEN-END:variables
 }

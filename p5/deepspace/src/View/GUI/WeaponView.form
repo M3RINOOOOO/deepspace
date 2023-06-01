@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
-  <NonVisualComponents>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel4"/>
-      </Properties>
-    </Component>
-  </NonVisualComponents>
+  <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="66" green="ff" red="ff" type="rgb"/>
+    </Property>
+    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+        <LineBorder/>
+      </Border>
+    </Property>
+  </Properties>
   <Events>
     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMouseClicked"/>
   </Events>
@@ -26,75 +29,76 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="Arma" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="Tipo" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="267" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="Potencia" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="P_n" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="246" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="Usos" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="U_n" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="264" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="titulo_potencia" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="titulo_tipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="titulo_usos" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="usos" min="-2" max="-2" attributes="0"/>
+                  <Component id="tipo" min="-2" max="-2" attributes="0"/>
+                  <Component id="potencia" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Arma" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Tipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="titulo_tipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tipo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Potencia" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="P_n" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="titulo_potencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="potencia" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Usos" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="U_n" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="titulo_usos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="usos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="9" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="Arma">
+    <Component class="javax.swing.JLabel" name="titulo_tipo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tipo:"/>
+        <Property name="text" type="java.lang.String" value="Tipo :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Potencia">
+    <Component class="javax.swing.JLabel" name="titulo_potencia">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Potencia"/>
+        <Property name="text" type="java.lang.String" value="Potencia :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Usos">
+    <Component class="javax.swing.JLabel" name="titulo_usos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Usos"/>
+        <Property name="text" type="java.lang.String" value="Usos :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Tipo">
+    <Component class="javax.swing.JLabel" name="tipo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel4"/>
+      </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="P_n">
+    <Component class="javax.swing.JLabel" name="potencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel5"/>
+      </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="U_n">
+    <Component class="javax.swing.JLabel" name="usos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel6"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -4,34 +4,33 @@
  */
 package View.GUI;
 import deepspace.WeaponToUI;
+
 /**
  *
- * @author Sergio
+ * @author crist
  */
-public class WeaponView extends javax.swing.JPanel {
-
-     private boolean selected = false;
+public class WeaponView extends javax.swing.JPanel implements CombatElementView{
+    
+    private boolean selected = false;
     /**
-     * Creates new form Weapon
+     * Creates new form WeaponView
      */
     public WeaponView() {
         initComponents();
-        setOpaque (selected);
+        setOpaque(selected);
     }
-
     
-     void setWeapon (WeaponToUI w) {
-        Tipo.setText(w.getType().toString());
-        P_n.setText(Float.toString(w.getPower()));
-        U_n.setText(Integer.toString(w.getUses()));
-        repaint();
-    }
-     
-     boolean isSelected () {
+    @Override
+    public boolean isSelected () {
         return selected;
     }
-     
     
+    void setWeapon(WeaponToUI weapon){
+        tipo.setText(weapon.getType().toString());
+        potencia.setText(Float.toString(weapon.getPower()));
+        usos.setText(Integer.toString(weapon.getUses()));
+        repaint();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,27 +40,32 @@ public class WeaponView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
-        Arma = new javax.swing.JLabel();
-        Potencia = new javax.swing.JLabel();
-        Usos = new javax.swing.JLabel();
-        Tipo = new javax.swing.JLabel();
-        P_n = new javax.swing.JLabel();
-        U_n = new javax.swing.JLabel();
+        titulo_tipo = new javax.swing.JLabel();
+        titulo_potencia = new javax.swing.JLabel();
+        titulo_usos = new javax.swing.JLabel();
+        tipo = new javax.swing.JLabel();
+        potencia = new javax.swing.JLabel();
+        usos = new javax.swing.JLabel();
 
-        jLabel4.setText("jLabel4");
-
+        setBackground(new java.awt.Color(255, 255, 102));
+        setBorder(javax.swing.BorderFactory.createLineBorder(null));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
             }
         });
 
-        Arma.setText("Tipo:");
+        titulo_tipo.setText("Tipo :");
 
-        Potencia.setText("Potencia");
+        titulo_potencia.setText("Potencia :");
 
-        Usos.setText("Usos");
+        titulo_usos.setText("Usos :");
+
+        tipo.setText("jLabel4");
+
+        potencia.setText("jLabel5");
+
+        usos.setText("jLabel6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,57 +74,48 @@ public class WeaponView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Arma)
-                        .addGap(18, 18, 18)
-                        .addComponent(Tipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(267, 267, 267))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Potencia)
-                        .addGap(18, 18, 18)
-                        .addComponent(P_n, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(246, 246, 246))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Usos)
-                        .addGap(18, 18, 18)
-                        .addComponent(U_n, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(264, 264, 264))))
+                    .addComponent(titulo_potencia)
+                    .addComponent(titulo_tipo)
+                    .addComponent(titulo_usos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usos)
+                    .addComponent(tipo)
+                    .addComponent(potencia))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Arma)
-                    .addComponent(Tipo))
-                .addGap(18, 18, 18)
+                    .addComponent(titulo_tipo)
+                    .addComponent(tipo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Potencia)
-                    .addComponent(P_n))
-                .addGap(18, 18, Short.MAX_VALUE)
+                    .addComponent(titulo_potencia)
+                    .addComponent(potencia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Usos)
-                    .addComponent(U_n))
-                .addContainerGap())
+                    .addComponent(titulo_usos)
+                    .addComponent(usos))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
         selected = !selected;
         setOpaque (selected);
         repaint();
-        
     }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Arma;
-    private javax.swing.JLabel P_n;
-    private javax.swing.JLabel Potencia;
-    private javax.swing.JLabel Tipo;
-    private javax.swing.JLabel U_n;
-    private javax.swing.JLabel Usos;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel potencia;
+    private javax.swing.JLabel tipo;
+    private javax.swing.JLabel titulo_potencia;
+    private javax.swing.JLabel titulo_tipo;
+    private javax.swing.JLabel titulo_usos;
+    private javax.swing.JLabel usos;
     // End of variables declaration//GEN-END:variables
 }
