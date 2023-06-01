@@ -86,18 +86,6 @@ public class HangarView extends javax.swing.JPanel {
         panel_hangar = new javax.swing.JPanel();
 
         scroll_hangar.setBorder(null);
-
-        javax.swing.GroupLayout panel_hangarLayout = new javax.swing.GroupLayout(panel_hangar);
-        panel_hangar.setLayout(panel_hangarLayout);
-        panel_hangarLayout.setHorizontalGroup(
-            panel_hangarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 586, Short.MAX_VALUE)
-        );
-        panel_hangarLayout.setVerticalGroup(
-            panel_hangarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         scroll_hangar.setViewportView(panel_hangar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -106,15 +94,14 @@ public class HangarView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scroll_hangar, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(scroll_hangar, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(scroll_hangar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(scroll_hangar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
