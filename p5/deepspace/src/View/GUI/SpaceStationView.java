@@ -4,6 +4,13 @@
  */
 package View.GUI;
 
+import deepspace.SpaceStationToUI;
+import java.util.ArrayList;
+import deepspace.WeaponToUI;
+import deepspace.ShieldToUI;
+import deepspace.HangarToUI;
+import java.awt.Component;
+import controller.Controller;
 /**
  *
  * @author crist
@@ -16,7 +23,59 @@ public class SpaceStationView extends javax.swing.JPanel {
     public SpaceStationView() {
         initComponents();
     }
-
+    
+    
+    void setSpaceStation(SpaceStationToUI s){
+        nombre_estacion.setText(s.getName());
+        ataque.setText(Float.toString(s.getAmmoPower()));
+        defensa.setText(Float.toString(s.getShieldPower()));
+        combustible.setText(Float.toString(s.getFuelUnits()));
+        medallas.setText(Integer.toString(s.getnMedals()));
+        
+        pendingDamage.removeAll();
+        DamageView damageView = new DamageView();
+        damageView.setDamage(s.getPendingDamage());
+        pendingDamage.add(damageView);
+        
+        panelWeaponsMounted.removeAll();
+        WeaponView weaponView;
+        ArrayList<WeaponToUI> weapons = s.getWeapons();
+        for(WeaponToUI w : weapons){
+            weaponView = new WeaponView();
+            weaponView.setWeapon(w);
+            panelWeaponsMounted.add(weaponView);
+        }
+        
+        panelShieldsMounted.removeAll();
+        ShieldView shieldView;
+        ArrayList<ShieldToUI> shields = s.getShieldBoosters();
+        for(ShieldToUI sh : shields){
+            shieldView = new ShieldView();
+            shieldView.setShield(sh);
+            panelShieldsMounted.add(shieldView);
+        }
+        
+        panelHangarStation.removeAll();
+        HangarToUI hangar = s.getHangar();
+        
+        if(hangar != null){
+            weapons = hangar.getWeapons();
+            shields = hangar.getShieldBoosters();
+            for(WeaponToUI w : weapons){
+            weaponView = new WeaponView();
+            weaponView.setWeapon(w);
+            panelHangarStation.add(weaponView);
+            }
+            for(ShieldToUI sh : shields){
+            shieldView = new ShieldView();
+            shieldView.setShield(sh);
+            panelHangarStation.add(shieldView);
+            }
+        
+        }
+        repaint();
+        revalidate();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,53 +124,9 @@ public class SpaceStationView extends javax.swing.JPanel {
 
         medallas.setText("jLabel8");
 
-        javax.swing.GroupLayout pendingDamageLayout = new javax.swing.GroupLayout(pendingDamage);
-        pendingDamage.setLayout(pendingDamageLayout);
-        pendingDamageLayout.setHorizontalGroup(
-            pendingDamageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
-        );
-        pendingDamageLayout.setVerticalGroup(
-            pendingDamageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 122, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout panelWeaponsMountedLayout = new javax.swing.GroupLayout(panelWeaponsMounted);
-        panelWeaponsMounted.setLayout(panelWeaponsMountedLayout);
-        panelWeaponsMountedLayout.setHorizontalGroup(
-            panelWeaponsMountedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
-        );
-        panelWeaponsMountedLayout.setVerticalGroup(
-            panelWeaponsMountedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         weaponsMounted.setViewportView(panelWeaponsMounted);
 
-        javax.swing.GroupLayout panelShieldsMountedLayout = new javax.swing.GroupLayout(panelShieldsMounted);
-        panelShieldsMounted.setLayout(panelShieldsMountedLayout);
-        panelShieldsMountedLayout.setHorizontalGroup(
-            panelShieldsMountedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
-        );
-        panelShieldsMountedLayout.setVerticalGroup(
-            panelShieldsMountedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         shieldsMounted.setViewportView(panelShieldsMounted);
-
-        javax.swing.GroupLayout panelHangarStationLayout = new javax.swing.GroupLayout(panelHangarStation);
-        panelHangarStation.setLayout(panelHangarStationLayout);
-        panelHangarStationLayout.setHorizontalGroup(
-            panelHangarStationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelHangarStationLayout.setVerticalGroup(
-            panelHangarStationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         mountButton.setText("Equipar");
         mountButton.addActionListener(new java.awt.event.ActionListener() {
@@ -201,31 +216,110 @@ public class SpaceStationView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(weaponsMounted, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(shieldsMounted, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(shieldsMounted, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelHangarStation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mountButton)
                     .addComponent(discardButton)
                     .addComponent(discardHangarButton))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void updateView(){      
+       setSpaceStation(Controller.getInstance().getUIversion().getCurrentStation());
+    }
+    
     private void mountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mountButtonActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:  
+        Controller.getInstance().mount(getSelectedWeaponsInHangar(), getSelectedShieldsInHangar());
+        updateView();
     }//GEN-LAST:event_mountButtonActionPerformed
 
     private void discardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discardButtonActionPerformed
         // TODO add your handling code here:
+        
+        updateView();
     }//GEN-LAST:event_discardButtonActionPerformed
 
     private void discardHangarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discardHangarButtonActionPerformed
         // TODO add your handling code here:
+        Controller.getInstance().discardHangar();
+        updateView();
     }//GEN-LAST:event_discardHangarButtonActionPerformed
 
-
+    
+    
+    ArrayList<Integer> getSelectedWeapons () {
+        ArrayList<Integer> selectedWeapons = new ArrayList<>();
+        int i = 0;
+        for (Component w : panelWeaponsMounted.getComponents()) {
+            if (((WeaponView) w).isSelected()) {
+                selectedWeapons.add(i);
+            }
+            i++;
+        }
+        return selectedWeapons;
+    }
+    
+    ArrayList<Integer> getSelectedWeaponsInHangar () {
+        ArrayList<Integer> selectedWeapons = new ArrayList<>();
+        int i = 0;
+        for (Component w : panelHangarStation.getComponents()) {
+            if(w.getClass() == WeaponView.class)
+                if (((WeaponView) w).isSelected()) {
+                    selectedWeapons.add(i);
+                }
+            i++;
+        }
+        return selectedWeapons;
+    }
+    
+    ArrayList<Integer> getSelectedShields () {
+        ArrayList<Integer> selectedShields = new ArrayList<>();
+        int i = 0;
+        for (Component s : panelShieldsMounted.getComponents()) {
+            if (((ShieldView) s).isSelected()) {
+                selectedShields.add(i);
+            }
+            i++;
+        }
+        return selectedShields;
+    }
+    
+    ArrayList<Integer> getSelectedShieldsInHangar () {
+        ArrayList<Integer> selectedShields = new ArrayList<>();
+        int i = 0;
+        for (Component s : panelHangarStation.getComponents()) {
+            if(s.getClass() == ShieldView.class)
+                if (((ShieldView) s).isSelected()) {
+                    selectedShields.add(i);
+                }
+            i++;
+        }
+        return selectedShields;
+    }
+    
+    ArrayList<Integer> getSelectedItemsInHangar () {
+        ArrayList<Integer> selectedItems = new ArrayList<>();
+        int i = 0;
+        for (Component c : panelHangarStation.getComponents()) {
+            if(c.getClass() == WeaponView.class)
+                if (((WeaponView) c).isSelected()) {
+                    selectedItems.add(i);
+                }
+            if(c.getClass() == ShieldView.class)
+                if (((ShieldView) c).isSelected()) {
+                    selectedItems.add(i);
+                }
+            i++;
+        }
+        return selectedItems;
+    }
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ataque;
     private javax.swing.JLabel combustible;
